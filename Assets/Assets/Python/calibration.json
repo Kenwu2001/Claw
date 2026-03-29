@@ -1,0 +1,15 @@
+{
+  "TIGHT_ABD_L": 47.78,
+  "TIGHT_ABD_M": 2024,
+  "TIGHT_ADD_L": 51.05,
+  "TIGHT_ADD_M": 4294956677,
+  "RADIUS_L": 10.0,
+  "RADIUS_M": 2.5,
+  "TIGHT_DIR": {
+    "abd": 1,
+    "add": -1
+  },
+  "TRIAL_INIT_M": 1175,
+  "TRIAL_INIT_L_DEG": 46.52,
+  "TRIAL_INIT_M9": 13247
+}

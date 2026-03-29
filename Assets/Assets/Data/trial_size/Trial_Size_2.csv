@@ -1,0 +1,49 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,Size Change(%),lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,AngleChange,best
+2,1,,-40.0,extension only,virtual,1,-20,-25,-8,63.262,1,1,1,-20,-14
+2,2,,25.0,extension only,real,1,10,28,31,169.438,1,1,1,10,26
+2,3,,-25.0,extension only,real,1,-10,-37,-13,88.483,1,1,1,-10,-19
+2,4,,40.0,extension only,real,1,20,37,47,119.232,1,1,1,20,41
+2,5,,40.0,extension only,real,1,20,28,39,125.439,1,1,2,20,31
+2,6,,-40.0,extension only,real,1,-20,-28,-9,81.987,1,1,2,-20,-14
+2,7,,-25.0,extension only,real,1,-10,-26,-14,340.384,1,1,2,-10,-20
+2,8,,25.0,extension only,real,1,10,17,24,77.138,1,1,2,10,21
+2,9,,40.0,extension only,virtual,2,20,71,98,143.941,1,2,1,20,81
+2,10,,-40.0,extension only,real,2,-20,-19,-5,61.328,1,2,1,-20,-10
+2,11,,25.0,extension only,virtual,2,10,15,29,87.877,1,2,1,10,26
+2,12,,-25.0,extension only,virtual,2,-10,-39,-20,129.927,1,2,1,-10,-30
+2,13,,-40.0,extension only,virtual,2,-20,-23,-11,69.151,1,2,2,-20,-14
+2,14,,-25.0,extension only,virtual,2,-10,-27,-11,76.109,1,2,2,-10,-16
+2,15,,40.0,extension only,virtual,2,20,75,97,89.579,1,2,2,20,96
+2,16,,25.0,extension only,virtual,2,10,54,73,100.271,1,2,2,10,58
+2,17,10.0,,inter-finger only,virtual,3,10,5,20,123.302,2,1,1,10,16
+2,18,20.0,,inter-finger only,virtual,3,20,42,61,105.359,2,1,1,20,54
+2,19,-10.0,,inter-finger only,virtual,3,-10,-40,-28,362.712,2,1,1,-10,-41
+2,20,-20.0,,inter-finger only,virtual,3,-20,,,,2,1,1,-20,
+2,21,10.0,,inter-finger only,virtual,3,10,,,,2,1,2,10,
+2,22,-10.0,,inter-finger only,virtual,3,-10,,,,2,1,2,-10,
+2,23,-20.0,,inter-finger only,virtual,3,-20,,,,2,1,2,-20,
+2,24,20.0,,inter-finger only,virtual,3,20,,,,2,1,2,20,
+2,25,10.0,,inter-finger only,real,4,10,,,,2,2,1,10,
+2,26,-20.0,,inter-finger only,real,4,-20,,,,2,2,1,-20,
+2,27,-10.0,,inter-finger only,real,4,-10,,,,2,2,1,-10,
+2,28,20.0,,inter-finger only,real,4,20,,,,2,2,1,20,
+2,29,20.0,,inter-finger only,real,4,20,,,,2,2,2,20,
+2,30,-20.0,,inter-finger only,real,4,-20,,,,2,2,2,-20,
+2,31,-10.0,,inter-finger only,real,4,-10,,,,2,2,2,-10,
+2,32,10.0,,inter-finger only,real,4,10,,,,2,2,2,10,
+2,33,-10.0,-25.0,both,real,5,-10,,,,3,1,1,-10,
+2,34,-20.0,-40.0,both,real,5,-20,,,,3,1,1,-20,
+2,35,10.0,25.0,both,real,5,10,,,,3,1,1,10,
+2,36,20.0,40.0,both,real,5,20,,,,3,1,1,20,
+2,37,-10.0,-25.0,both,real,5,-10,,,,3,1,2,-10,
+2,38,10.0,25.0,both,real,5,10,,,,3,1,2,10,
+2,39,20.0,40.0,both,real,5,20,,,,3,1,2,20,
+2,40,-20.0,-40.0,both,real,5,-20,,,,3,1,2,-20,
+2,41,20.0,40.0,both,virtual,6,20,,,,3,2,1,20,
+2,42,-20.0,-40.0,both,virtual,6,-20,,,,3,2,1,-20,
+2,43,10.0,25.0,both,virtual,6,10,,,,3,2,1,10,
+2,44,-10.0,-25.0,both,virtual,6,-10,,,,3,2,1,-10,
+2,45,-20.0,-40.0,both,virtual,6,-20,,,,3,2,2,-20,
+2,46,-10.0,-25.0,both,virtual,6,-10,,,,3,2,2,-10,
+2,47,20.0,40.0,both,virtual,6,20,,,,3,2,2,20,
+2,48,10.0,25.0,both,virtual,6,10,,,,3,2,2,10,

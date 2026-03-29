@@ -1,0 +1,37 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,best,lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,ForceLevel
+8,1,20.0,,inter-finger only,real,1,3.799999,3.799999,4.499999,136.721,1,1,1,20
+8,2,30.0,,inter-finger only,real,1,5.099998,4.299999,5.399998,91.649,1,1,1,30
+8,3,10.0,,inter-finger only,real,1,3.3,2.800001,3.4,108.569,1,1,1,10
+8,4,10.0,,inter-finger only,real,1,3.799999,3.2,4.299999,117.05,1,1,2,10
+8,5,20.0,,inter-finger only,real,1,9.1,9.6,16.1,97.333,1,1,2,20
+8,6,30.0,,inter-finger only,real,1,7.6,10.1,12.6,103.893,1,1,2,30
+8,7,10.0,,inter-finger only,virtual,2,5.1,2.1,9.1,55.732,1,2,1,10
+8,8,30.0,,inter-finger only,virtual,2,13.1,12.1,19.6,48.4,1,2,1,30
+8,9,20.0,,inter-finger only,virtual,2,7.6,7.1,10.6,48.594,1,2,1,20
+8,10,10.0,,inter-finger only,virtual,2,5.1,2.6,6.6,70.522,1,2,2,10
+8,11,30.0,,inter-finger only,virtual,2,10.1,7.1,16.6,61.204,1,2,2,30
+8,12,20.0,,inter-finger only,virtual,2,6.6,7.6,12.1,78.938,1,2,2,20
+8,13,20.0,40.0,both,virtual,3,5.1,2.6,4.6,101.158,2,1,1,20
+8,14,30.0,55.0,both,virtual,3,,,,,2,1,1,30
+8,15,10.0,25.0,both,virtual,3,,,,,2,1,1,10
+8,16,20.0,40.0,both,virtual,3,,,,,2,1,2,20
+8,17,30.0,55.0,both,virtual,3,,,,,2,1,2,30
+8,18,10.0,25.0,both,virtual,3,,,,,2,1,2,10
+8,19,30.0,55.0,both,real,4,,,,,2,2,1,30
+8,20,10.0,25.0,both,real,4,,,,,2,2,1,10
+8,21,20.0,40.0,both,real,4,,,,,2,2,1,20
+8,22,20.0,40.0,both,real,4,,,,,2,2,2,20
+8,23,10.0,25.0,both,real,4,,,,,2,2,2,10
+8,24,30.0,55.0,both,real,4,,,,,2,2,2,30
+8,25,,40.0,extension only,real,5,,,,,3,1,1,20
+8,26,,25.0,extension only,real,5,,,,,3,1,1,10
+8,27,,55.0,extension only,real,5,,,,,3,1,1,30
+8,28,,40.0,extension only,real,5,,,,,3,1,2,20
+8,29,,55.0,extension only,real,5,,,,,3,1,2,30
+8,30,,25.0,extension only,real,5,,,,,3,1,2,10
+8,31,,40.0,extension only,virtual,6,,,,,3,2,1,20
+8,32,,25.0,extension only,virtual,6,,,,,3,2,1,10
+8,33,,55.0,extension only,virtual,6,,,,,3,2,1,30
+8,34,,40.0,extension only,virtual,6,,,,,3,2,2,20
+8,35,,55.0,extension only,virtual,6,,,,,3,2,2,30
+8,36,,25.0,extension only,virtual,6,,,,,3,2,2,10

@@ -1,0 +1,49 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,Size Change(%),lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,AngleChange
+8,1,20.0,,inter-finger only,real,1,20,,,,1,1,1,20
+8,2,-20.0,,inter-finger only,real,1,-20,,,,1,1,1,-20
+8,3,-10.0,,inter-finger only,real,1,-10,,,,1,1,1,-10
+8,4,10.0,,inter-finger only,real,1,10,,,,1,1,1,10
+8,5,-20.0,,inter-finger only,real,1,-20,,,,1,1,2,-20
+8,6,-10.0,,inter-finger only,real,1,-10,,,,1,1,2,-10
+8,7,10.0,,inter-finger only,real,1,10,,,,1,1,2,10
+8,8,20.0,,inter-finger only,real,1,20,,,,1,1,2,20
+8,9,-10.0,,inter-finger only,virtual,2,-10,,,,1,2,1,-10
+8,10,10.0,,inter-finger only,virtual,2,10,,,,1,2,1,10
+8,11,-20.0,,inter-finger only,virtual,2,-20,,,,1,2,1,-20
+8,12,20.0,,inter-finger only,virtual,2,20,,,,1,2,1,20
+8,13,-20.0,,inter-finger only,virtual,2,-20,,,,1,2,2,-20
+8,14,10.0,,inter-finger only,virtual,2,10,,,,1,2,2,10
+8,15,-10.0,,inter-finger only,virtual,2,-10,,,,1,2,2,-10
+8,16,20.0,,inter-finger only,virtual,2,20,,,,1,2,2,20
+8,17,-20.0,-40.0,both,virtual,3,-20,,,,2,1,1,-20
+8,18,-10.0,-25.0,both,virtual,3,-10,,,,2,1,1,-10
+8,19,20.0,40.0,both,virtual,3,20,,,,2,1,1,20
+8,20,10.0,25.0,both,virtual,3,10,,,,2,1,1,10
+8,21,-20.0,-40.0,both,virtual,3,-20,,,,2,1,2,-20
+8,22,20.0,40.0,both,virtual,3,20,,,,2,1,2,20
+8,23,10.0,25.0,both,virtual,3,10,,,,2,1,2,10
+8,24,-10.0,-25.0,both,virtual,3,-10,,,,2,1,2,-10
+8,25,10.0,25.0,both,real,4,10,,,,2,2,1,10
+8,26,-10.0,-25.0,both,real,4,-10,,,,2,2,1,-10
+8,27,-20.0,-40.0,both,real,4,-20,,,,2,2,1,-20
+8,28,20.0,40.0,both,real,4,20,,,,2,2,1,20
+8,29,10.0,25.0,both,real,4,10,,,,2,2,2,10
+8,30,-20.0,-40.0,both,real,4,-20,,,,2,2,2,-20
+8,31,-10.0,-25.0,both,real,4,-10,,,,2,2,2,-10
+8,32,20.0,40.0,both,real,4,20,,,,2,2,2,20
+8,33,,-25.0,extension only,real,5,-10,,,,3,1,1,-10
+8,34,,25.0,extension only,real,5,10,,,,3,1,1,10
+8,35,,40.0,extension only,real,5,20,,,,3,1,1,20
+8,36,,-40.0,extension only,real,5,-20,,,,3,1,1,-20
+8,37,,-25.0,extension only,real,5,-10,,,,3,1,2,-10
+8,38,,-40.0,extension only,real,5,-20,,,,3,1,2,-20
+8,39,,40.0,extension only,real,5,20,,,,3,1,2,20
+8,40,,25.0,extension only,real,5,10,,,,3,1,2,10
+8,41,,40.0,extension only,virtual,6,20,,,,3,2,1,20
+8,42,,-40.0,extension only,virtual,6,-20,,,,3,2,1,-20
+8,43,,-25.0,extension only,virtual,6,-10,,,,3,2,1,-10
+8,44,,25.0,extension only,virtual,6,10,,,,3,2,1,10
+8,45,,-40.0,extension only,virtual,6,-20,,,,3,2,2,-20
+8,46,,40.0,extension only,virtual,6,20,,,,3,2,2,20
+8,47,,25.0,extension only,virtual,6,10,,,,3,2,2,10
+8,48,,-25.0,extension only,virtual,6,-10,,,,3,2,2,-10

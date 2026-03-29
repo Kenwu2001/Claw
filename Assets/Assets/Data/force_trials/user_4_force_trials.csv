@@ -1,0 +1,37 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,best,lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,ForceLevel
+4,1,10.0,25.0,both,virtual,1,,,,,1,1,1,10
+4,2,20.0,40.0,both,virtual,1,,,,,1,1,1,20
+4,3,30.0,55.0,both,virtual,1,,,,,1,1,1,30
+4,4,20.0,40.0,both,virtual,1,,,,,1,1,2,20
+4,5,30.0,55.0,both,virtual,1,,,,,1,1,2,30
+4,6,10.0,25.0,both,virtual,1,,,,,1,1,2,10
+4,7,30.0,55.0,both,real,2,,,,,1,2,1,30
+4,8,20.0,40.0,both,real,2,,,,,1,2,1,20
+4,9,10.0,25.0,both,real,2,,,,,1,2,1,10
+4,10,10.0,25.0,both,real,2,,,,,1,2,2,10
+4,11,30.0,55.0,both,real,2,,,,,1,2,2,30
+4,12,20.0,40.0,both,real,2,,,,,1,2,2,20
+4,13,20.0,,inter-finger only,real,3,,,,,2,1,1,20
+4,14,30.0,,inter-finger only,real,3,,,,,2,1,1,30
+4,15,10.0,,inter-finger only,real,3,,,,,2,1,1,10
+4,16,10.0,,inter-finger only,real,3,,,,,2,1,2,10
+4,17,20.0,,inter-finger only,real,3,,,,,2,1,2,20
+4,18,30.0,,inter-finger only,real,3,,,,,2,1,2,30
+4,19,30.0,,inter-finger only,virtual,4,,,,,2,2,1,30
+4,20,20.0,,inter-finger only,virtual,4,,,,,2,2,1,20
+4,21,10.0,,inter-finger only,virtual,4,,,,,2,2,1,10
+4,22,10.0,,inter-finger only,virtual,4,,,,,2,2,2,10
+4,23,30.0,,inter-finger only,virtual,4,,,,,2,2,2,30
+4,24,20.0,,inter-finger only,virtual,4,,,,,2,2,2,20
+4,25,,55.0,extension only,virtual,5,,,,,3,1,1,30
+4,26,,40.0,extension only,virtual,5,,,,,3,1,1,20
+4,27,,25.0,extension only,virtual,5,,,,,3,1,1,10
+4,28,,40.0,extension only,virtual,5,,,,,3,1,2,20
+4,29,,55.0,extension only,virtual,5,,,,,3,1,2,30
+4,30,,25.0,extension only,virtual,5,,,,,3,1,2,10
+4,31,,25.0,extension only,real,6,,,,,3,2,1,10
+4,32,,40.0,extension only,real,6,,,,,3,2,1,20
+4,33,,55.0,extension only,real,6,,,,,3,2,1,30
+4,34,,25.0,extension only,real,6,,,,,3,2,2,10
+4,35,,40.0,extension only,real,6,,,,,3,2,2,20
+4,36,,55.0,extension only,real,6,,,,,3,2,2,30

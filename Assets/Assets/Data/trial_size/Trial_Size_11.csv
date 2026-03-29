@@ -1,0 +1,49 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,Size Change(%),lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,AngleChange,best
+11,1,20.0,,inter-finger only,real,1,20,43,76,148.995,1,1,1,20,51
+11,2,-20.0,,inter-finger only,real,1,-20,-33,-16,68.621,1,1,1,-20,-18
+11,3,10.0,,inter-finger only,real,1,10,19,50,89.982,1,1,1,10,41
+11,4,-10.0,,inter-finger only,real,1,-10,-27,-7,48.731,1,1,1,-10,-16
+11,5,-10.0,,inter-finger only,real,1,-10,-29,5,151.688,1,1,2,-10,-19
+11,6,20.0,,inter-finger only,real,1,20,29,59,36.656,1,1,2,20,39
+11,7,10.0,,inter-finger only,real,1,10,2,12,22.11,1,1,2,10,9
+11,8,-20.0,,inter-finger only,real,1,-20,-22,-10,36.818,1,1,2,-20,-19
+11,9,-10.0,,inter-finger only,virtual,2,-10,-25,-4,24.206,1,2,1,-10,-20
+11,10,-20.0,,inter-finger only,virtual,2,-20,-26,-15,35.528,1,2,1,-20,-16
+11,11,10.0,,inter-finger only,virtual,2,10,4,34,70.621,1,2,1,10,11
+11,12,20.0,,inter-finger only,virtual,2,20,44,61,88.677,1,2,1,20,46
+11,13,-20.0,,inter-finger only,virtual,2,-20,-26,-17,105.136,1,2,2,-20,-29
+11,14,10.0,,inter-finger only,virtual,2,10,27,51,161.87,1,2,2,10,16
+11,15,20.0,,inter-finger only,virtual,2,20,80,119,115.399,1,2,2,20,108
+11,16,-10.0,,inter-finger only,virtual,2,-10,-42,-15,69.914,1,2,2,-10,-29
+11,17,,-40.0,extension only,virtual,3,-20,-17,-6,87.039,2,1,1,-20,-14
+11,18,,-25.0,extension only,virtual,3,-10,-15,-10,43.665,2,1,1,-10,-13
+11,19,,25.0,extension only,virtual,3,10,2,5,18.845,2,1,1,10,4
+11,20,,40.0,extension only,virtual,3,20,1,1,19.331,2,1,1,20,1
+11,21,,25.0,extension only,virtual,3,10,1,1,15.777,2,1,2,10,1
+11,22,,-25.0,extension only,virtual,3,-10,-3,0,20.219,2,1,2,-10,-1
+11,23,,40.0,extension only,virtual,3,20,1,1,28.334,2,1,2,20,1
+11,24,,-40.0,extension only,virtual,3,-20,-16,-12,74.872,2,1,2,-20,-14
+11,25,,-40.0,extension only,real,4,-20,1,1,16.223,2,2,1,-20,1
+11,26,,-25.0,extension only,real,4,-10,1,1,12.069,2,2,1,-10,1
+11,27,,40.0,extension only,real,4,20,3,5,19.122,2,2,1,20,4
+11,28,,25.0,extension only,real,4,10,6,11,16.496,2,2,1,10,9
+11,29,,25.0,extension only,real,4,10,7,13,21.317,2,2,2,10,11
+11,30,,40.0,extension only,real,4,20,7,12,20.485,2,2,2,20,10
+11,31,,-25.0,extension only,real,4,-10,1,1,8.401,2,2,2,-10,1
+11,32,,-40.0,extension only,real,4,-20,1,1,9.429,2,2,2,-20,1
+11,33,-10.0,-25.0,both,real,5,-10,,,,3,1,1,-10,
+11,34,20.0,40.0,both,real,5,20,,,,3,1,1,20,
+11,35,-20.0,-40.0,both,real,5,-20,,,,3,1,1,-20,
+11,36,10.0,25.0,both,real,5,10,,,,3,1,1,10,
+11,37,10.0,25.0,both,real,5,10,,,,3,1,2,10,
+11,38,-20.0,-40.0,both,real,5,-20,,,,3,1,2,-20,
+11,39,-10.0,-25.0,both,real,5,-10,,,,3,1,2,-10,
+11,40,20.0,40.0,both,real,5,20,,,,3,1,2,20,
+11,41,-10.0,-25.0,both,virtual,6,-10,,,,3,2,1,-10,
+11,42,20.0,40.0,both,virtual,6,20,,,,3,2,1,20,
+11,43,-20.0,-40.0,both,virtual,6,-20,,,,3,2,1,-20,
+11,44,10.0,25.0,both,virtual,6,10,,,,3,2,1,10,
+11,45,10.0,25.0,both,virtual,6,10,,,,3,2,2,10,
+11,46,20.0,40.0,both,virtual,6,20,,,,3,2,2,20,
+11,47,-20.0,-40.0,both,virtual,6,-20,,,,3,2,2,-20,
+11,48,-10.0,-25.0,both,virtual,6,-10,,,,3,2,2,-10,

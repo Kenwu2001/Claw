@@ -1,0 +1,39 @@
+UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,best,lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,ForceLevel
+2,1,,50.0,extension only,virtual,1,13.6,12.1,16.1,105.543,1,1,1,30
+2,2,,38.0,extension only,virtual,1,10.1,8.6,10.6,73.308,1,1,1,20
+2,3,,25.0,extension only,virtual,1,5.1,4.1,6.6,80.727,1,1,1,10
+2,4,,50.0,extension only,real,1,15.6,14.1,17.1,94.509,1,1,2,30
+2,5,,38.0,extension only,real,1,10.1,9.6,11.6,81.111,1,1,2,20
+2,6,,25.0,extension only,real,1,6.1,5.6,6.1,112.067,1,1,2,10
+2,7,,25.0,extension only,real,2,6.6,6.1,7.6,77.808,1,2,1,10
+2,8,,50.0,extension only,real,2,10.6,9.6,11.1,53.655,1,2,1,30
+2,9,,38.0,extension only,real,2,8.1,6.6,9.6,33.676,1,2,1,20
+2,10,,50.0,extension only,virtual,2,12.1,11.6,12.6,74.854,1,2,2,30
+2,11,,38.0,extension only,virtual,2,8.6,7.6,9.1,77.651,1,2,2,20
+2,12,,25.0,extension only,virtual,2,5.6,5.6,7.1,46.52,1,2,2,10
+2,13,10.0,,inter-finger only,virtual,3,,,,,2,1,1,20
+2,14,20.0,,inter-finger only,virtual,3,,,,,2,1,1,10
+2,15,30.0,,inter-finger only,virtual,3,,,,,2,1,1,30
+2,16,30.0,,inter-finger only,virtual,3,,,,,2,1,2,30
+2,17,10.0,,inter-finger only,virtual,3,,,,,2,1,2,10
+2,18,20.0,,inter-finger only,virtual,3,,,,,2,1,2,20
+2,19,10.0,,inter-finger only,real,4,,,,,2,2,1,10
+2,20,20.0,,inter-finger only,real,4,,,,,2,2,1,20
+2,21,30.0,,inter-finger only,real,4,,,,,2,2,1,30
+2,22,10.0,,inter-finger only,real,4,,,,,2,2,2,10
+2,23,20.0,,inter-finger only,real,4,,,,,2,2,2,20
+2,24,30.0,,inter-finger only,real,4,,,,,2,2,2,30
+2,25,20.0,40.0,both,real,5,,,,,3,1,1,20
+2,26,10.0,25.0,both,real,5,,,,,3,1,1,10
+2,27,30.0,55.0,both,real,5,,,,,3,1,1,30
+2,28,20.0,40.0,both,real,5,,,,,3,1,2,20
+2,29,10.0,25.0,both,real,5,,,,,3,1,2,10
+2,30,30.0,55.0,both,real,5,,,,,3,1,2,30
+2,31,20.0,40.0,both,virtual,6,,,,,3,2,1,20
+2,32,30.0,55.0,both,virtual,6,,,,,3,2,1,30
+2,33,10.0,25.0,both,virtual,6,,,,,3,2,1,10
+2,34,30.0,55.0,both,virtual,6,,,,,3,2,2,30
+2,35,10.0,25.0,both,virtual,6,,,,,3,2,2,10
+2,36,20.0,40.0,both,virtual,6,,,,,3,2,2,20
+
+宥

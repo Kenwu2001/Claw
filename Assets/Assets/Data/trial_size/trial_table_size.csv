@@ -1,0 +1,578 @@
+﻿UserID,Trial_no,ab_ad_angle,ex_angle,Method,ObjectType,Block,Size Change(%),lowerbound,upperbound,duration,MethodBlock,ObjectBlock,Repetition,AngleChange,best
+1,1,,20,extension only,real,1,20,,,,1,1,1,20
+1,2,,-10,extension only,real,1,-10,,,,1,1,1,-10
+1,3,,-20,extension only,real,1,-20,,,,1,1,1,-20
+1,4,,10,extension only,real,1,10,,,,1,1,1,10
+1,5,,-20,extension only,real,1,-20,,,,1,1,2,-20
+1,6,,-10,extension only,real,1,-10,,,,1,1,2,-10
+1,7,,10,extension only,real,1,10,,,,1,1,2,10
+1,8,,20,extension only,real,1,20,,,,1,1,2,20
+1,9,,10,extension only,virtual,2,10,,,,1,2,1,10
+1,10,,-20,extension only,virtual,2,-20,,,,1,2,1,-20
+1,11,,-10,extension only,virtual,2,-10,,,,1,2,1,-10
+1,12,,20,extension only,virtual,2,20,,,,1,2,1,20
+1,13,,10,extension only,virtual,2,10,,,,1,2,2,10
+1,14,,-10,extension only,virtual,2,-10,,,,1,2,2,-10
+1,15,,-20,extension only,virtual,2,-20,,,,1,2,2,-20
+1,16,,20,extension only,virtual,2,20,,,,1,2,2,20
+1,17,-10,-10,both,virtual,3,-10,,,,2,1,1,-10
+1,18,20,20,both,virtual,3,20,,,,2,1,1,20
+1,19,-20,-20,both,virtual,3,-20,,,,2,1,1,-20
+1,20,10,10,both,virtual,3,10,,,,2,1,1,10
+1,21,-20,-20,both,virtual,3,-20,,,,2,1,2,-20
+1,22,10,10,both,virtual,3,10,,,,2,1,2,10
+1,23,20,20,both,virtual,3,20,,,,2,1,2,20
+1,24,-10,-10,both,virtual,3,-10,,,,2,1,2,-10
+1,25,-10,-10,both,real,4,-10,,,,2,2,1,-10
+1,26,10,10,both,real,4,10,,,,2,2,1,10
+1,27,-20,-20,both,real,4,-20,,,,2,2,1,-20
+1,28,20,20,both,real,4,20,,,,2,2,1,20
+1,29,-10,-10,both,real,4,-10,,,,2,2,2,-10
+1,30,-20,-20,both,real,4,-20,,,,2,2,2,-20
+1,31,20,20,both,real,4,20,,,,2,2,2,20
+1,32,10,10,both,real,4,10,,,,2,2,2,10
+1,33,10,,inter-finger only,real,5,10,,,,3,1,1,10
+1,34,-20,,inter-finger only,real,5,-20,,,,3,1,1,-20
+1,35,20,,inter-finger only,real,5,20,,,,3,1,1,20
+1,36,-10,,inter-finger only,real,5,-10,,,,3,1,1,-10
+1,37,-20,,inter-finger only,real,5,-20,,,,3,1,2,-20
+1,38,20,,inter-finger only,real,5,20,,,,3,1,2,20
+1,39,-10,,inter-finger only,real,5,-10,,,,3,1,2,-10
+1,40,10,,inter-finger only,real,5,10,,,,3,1,2,10
+1,41,-10,,inter-finger only,virtual,6,-10,,,,3,2,1,-10
+1,42,-20,,inter-finger only,virtual,6,-20,,,,3,2,1,-20
+1,43,20,,inter-finger only,virtual,6,20,,,,3,2,1,20
+1,44,10,,inter-finger only,virtual,6,10,,,,3,2,1,10
+1,45,10,,inter-finger only,virtual,6,10,,,,3,2,2,10
+1,46,20,,inter-finger only,virtual,6,20,,,,3,2,2,20
+1,47,-20,,inter-finger only,virtual,6,-20,,,,3,2,2,-20
+1,48,-10,,inter-finger only,virtual,6,-10,,,,3,2,2,-10
+2,1,,-40.0,extension only,virtual,1,-20,-25,-8,63.262,1,1,1,-20,-14
+2,2,,25.0,extension only,real,1,10,28,31,169.438,1,1,1,10,26
+2,3,,-25.0,extension only,real,1,-10,-37,-13,88.483,1,1,1,-10,-19
+2,4,,40.0,extension only,real,1,20,37,47,119.232,1,1,1,20,41
+2,5,,40.0,extension only,real,1,20,28,39,125.439,1,1,2,20,31
+2,6,,-40.0,extension only,real,1,-20,-28,-9,81.987,1,1,2,-20,-14
+2,7,,-25.0,extension only,real,1,-10,-26,-14,340.384,1,1,2,-10,-20
+2,8,,25.0,extension only,real,1,10,17,24,77.138,1,1,2,10,21
+2,9,,40.0,extension only,virtual,2,20,71,98,143.941,1,2,1,20,81
+2,10,,-40.0,extension only,real,2,-20,-19,-5,61.328,1,2,1,-20,-10
+2,11,,25.0,extension only,virtual,2,10,15,29,87.877,1,2,1,10,26
+2,12,,-25.0,extension only,virtual,2,-10,-39,-20,129.927,1,2,1,-10,-30
+2,13,,-40.0,extension only,virtual,2,-20,-23,-11,69.151,1,2,2,-20,-14
+2,14,,-25.0,extension only,virtual,2,-10,-27,-11,76.109,1,2,2,-10,-16
+2,15,,40.0,extension only,virtual,2,20,75,97,89.579,1,2,2,20,96
+2,16,,25.0,extension only,virtual,2,10,54,73,100.271,1,2,2,10,58
+2,17,10.0,,inter-finger only,virtual,3,10,5,20,123.302,2,1,1,10,16
+2,18,20.0,,inter-finger only,virtual,3,20,42,61,105.359,2,1,1,20,54
+2,19,-10.0,,inter-finger only,virtual,3,-10,-40,-28,362.712,2,1,1,-10,-41
+2,20,-20,,inter-finger only,virtual,3,-20,,,,2,1,1,-20
+2,21,10,,inter-finger only,virtual,3,10,,,,2,1,2,10
+2,22,-10,,inter-finger only,virtual,3,-10,,,,2,1,2,-10
+2,23,-20,,inter-finger only,virtual,3,-20,,,,2,1,2,-20
+2,24,20,,inter-finger only,virtual,3,20,,,,2,1,2,20
+2,25,10,,inter-finger only,real,4,10,,,,2,2,1,10
+2,26,-20,,inter-finger only,real,4,-20,,,,2,2,1,-20
+2,27,-10,,inter-finger only,real,4,-10,,,,2,2,1,-10
+2,28,20,,inter-finger only,real,4,20,,,,2,2,1,20
+2,29,20,,inter-finger only,real,4,20,,,,2,2,2,20
+2,30,-20,,inter-finger only,real,4,-20,,,,2,2,2,-20
+2,31,-10,,inter-finger only,real,4,-10,,,,2,2,2,-10
+2,32,10,,inter-finger only,real,4,10,,,,2,2,2,10
+2,33,-10,-10,both,real,5,-10,,,,3,1,1,-10
+2,34,-20,-20,both,real,5,-20,,,,3,1,1,-20
+2,35,10,10,both,real,5,10,,,,3,1,1,10
+2,36,20,20,both,real,5,20,,,,3,1,1,20
+2,37,-10,-10,both,real,5,-10,,,,3,1,2,-10
+2,38,10,10,both,real,5,10,,,,3,1,2,10
+2,39,20,20,both,real,5,20,,,,3,1,2,20
+2,40,-20,-20,both,real,5,-20,,,,3,1,2,-20
+2,41,20,20,both,virtual,6,20,,,,3,2,1,20
+2,42,-20,-20,both,virtual,6,-20,,,,3,2,1,-20
+2,43,10,10,both,virtual,6,10,,,,3,2,1,10
+2,44,-10,-10,both,virtual,6,-10,,,,3,2,1,-10
+2,45,-20,-20,both,virtual,6,-20,,,,3,2,2,-20
+2,46,-10,-10,both,virtual,6,-10,,,,3,2,2,-10
+2,47,20,20,both,virtual,6,20,,,,3,2,2,20
+2,48,10,10,both,virtual,6,10,,,,3,2,2,10
+3,1,20.0,,inter-finger only,virtual,1,20,5,20,235.503,1,1,1,20,22
+3,2,-20.0,,inter-finger only,virtual,1,-20,-43,-13,104.198,1,1,1,-20,-15
+3,3,10.0,,inter-finger only,virtual,1,10,1,15,63.229,1,1,1,10,6
+3,4,-10.0,,inter-finger only,virtual,1,-10,-21,-10,78.199,1,1,1,-10,-5
+3,5,-20.0,,inter-finger only,virtual,1,-20,-69,-12,82.339,1,1,2,-20,-30
+3,6,20.0,,inter-finger only,virtual,1,20,12,36,72.533,1,1,2,20,11
+3,7,10.0,,inter-finger only,virtual,1,10,1,11,61.021,1,1,2,10,3
+3,8,-10.0,,inter-finger only,virtual,1,-10,1.0,1.0,16.139,1,1,2,-10,1.0
+3,9,10.0,,inter-finger only,real,2,10,1.0,1.0,28.562,1,2,1,10,1.0
+3,10,20.0,,inter-finger only,real,2,20,10,22,89.183,1,2,1,20,15
+3,11,-10.0,,inter-finger only,real,2,-10,-6,-2,54.216,1,2,1,-10,-3
+3,12,-20.0,,inter-finger only,real,2,-20,-32,-11,85.42,1,2,1,-20,-12
+3,13,-10.0,,inter-finger only,real,2,-10,-8,-3,59.52,1,2,2,-10,-4
+3,14,10.0,,inter-finger only,real,2,10,3,11,66.727,1,2,2,10,6
+3,15,-20.0,,inter-finger only,real,2,-20,-45,-11,52.355,1,2,2,-20,-19
+3,16,20.0,,inter-finger only,real,2,20,22,33,67.977,1,2,2,20,21
+3,17,10.0,25.0,both,real,3,10,5,12,205.166,2,1,1,10,7
+3,18,-20.0,-40.0,both,real,3,-20,-50,-29,105.886,2,1,1,-20,-24
+3,19,-10.0,-25.0,both,real,3,-10,-13,-5,49.928,2,1,1,-10,-8
+3,20,20.0,40.0,both,real,3,20,11,38,77.717,2,1,1,20,23
+3,21,10.0,25.0,both,real,3,10,7,23,52.29,2,1,2,10,13
+3,22,20.0,40.0,both,real,3,20,7,19,54.344,2,1,2,20,16
+3,23,-10.0,-25.0,both,real,3,-10,-9,-5,68.4,2,1,2,-10,-9
+3,24,-20.0,-40.0,both,real,3,-20,-54,-34,44.665,2,1,2,-20,-49
+3,25,20.0,40.0,both,virtual,4,20,11,61,81.386,2,2,1,20,21
+3,26,-20.0,-40.0,both,virtual,4,-20,-40,-14,63.638,2,2,1,-20,-24
+3,27,10.0,25.0,both,virtual,4,10,5,16,45.734,2,2,1,10,6
+3,28,-10.0,-25.0,both,virtual,4,-10,-19,-5,39.915,2,2,1,-10,-14
+3,29,20.0,40.0,both,virtual,4,20,9,36,34.069,2,2,2,20,21
+3,30,-10.0,-25.0,both,virtual,4,-10,-39,-11,43.248,2,2,2,-10,-19
+3,31,10.0,25.0,both,virtual,4,10,2,11,38.456,2,2,2,10,6
+3,32,-20.0,-40.0,both,virtual,4,-20,-59,-36,51.303,2,2,2,-20,-39
+3,33,,40.0,extension only,virtual,5,20,17,29,107.248,3,1,1,20,21
+3,34,,-25.0,extension only,virtual,5,-10,-12,-5,51.149,3,1,1,-10,-9
+3,35,,-40.0,extension only,virtual,5,-20,-18,-20,53.135,3,1,1,-20,-10
+3,36,,25.0,extension only,virtual,5,10,6,17,51.915,3,1,1,10,6
+3,37,,40.0,extension only,virtual,5,20,15,31,43.359,3,1,2,20,21
+3,38,,25.0,extension only,virtual,5,10,13,25,32.527,3,1,2,10,21
+3,39,,-25.0,extension only,virtual,5,-10,-15,-1,33.511,3,1,2,-10,-6
+3,40,,-40.0,extension only,virtual,5,-20,-30,-22,43.026,3,1,2,-20,-24
+3,41,,25.0,extension only,real,6,10,7,22,58.012,3,2,1,10,14
+3,42,,-25.0,extension only,real,6,-10,-14,0,130.443,3,2,1,-10,-8
+3,43,,40.0,extension only,real,6,20,5,19,37.36,3,2,1,20,7
+3,44,,-40.0,extension only,real,6,-20,1,1,15.704,3,2,1,-20,1
+3,45,,40.0,extension only,real,6,20,17,21,72.942,3,2,2,20,21
+3,46,,25.0,extension only,real,6,10,3,10,29.595,3,2,2,10,4
+3,47,,-40.0,extension only,real,6,-20,1,1,18.137,3,2,2,-20,1
+3,48,,-25.0,extension only,real,6,-10,1,1,11.805,3,2,2,-10,1
+4,1,-20,-20,both,virtual,1,-20,2,49,262.615,1,1,1,-20,14
+4,2,20,20,both,virtual,1,20,27,74,133.149,1,1,1,20,58
+4,3,-10,-10,both,virtual,1,-10,-19,-9,85.658,1,1,1,-10,-19
+4,4,10,10,both,virtual,1,10,17,10,204.143,1,1,1,10,25
+4,5,-20,-20,both,virtual,1,-20,-35,17,134.011,1,1,2,-20,-29
+4,6,20,20,both,virtual,1,20,,,,1,1,2,20,
+4,7,10,10,both,virtual,1,10,-36,37,143.013,1,1,2,10,14
+4,8,-10,-10,both,virtual,1,-10,-48,12,137.513,1,1,2,-10,-23
+4,9,-10,-10,both,real,2,-10,,,,1,2,1,-10
+4,10,20,20,both,real,2,20,,,,1,2,1,20
+4,11,10,10,both,real,2,10,,,,1,2,1,10
+4,12,-20,-20,both,real,2,-20,,,,1,2,1,-20
+4,13,-20,-20,both,real,2,-20,,,,1,2,2,-20
+4,14,20,20,both,real,2,20,,,,1,2,2,20
+4,15,-10,-10,both,real,2,-10,,,,1,2,2,-10
+4,16,10,10,both,real,2,10,,,,1,2,2,10
+4,17,-20,,inter-finger only,real,3,-20,,,,2,1,1,-20
+4,18,10,,inter-finger only,real,3,10,,,,2,1,1,10
+4,19,-10,,inter-finger only,real,3,-10,,,,2,1,1,-10
+4,20,20,,inter-finger only,real,3,20,,,,2,1,1,20
+4,21,20,,inter-finger only,real,3,20,,,,2,1,2,20
+4,22,10,,inter-finger only,real,3,10,,,,2,1,2,10
+4,23,-20,,inter-finger only,real,3,-20,,,,2,1,2,-20
+4,24,-10,,inter-finger only,real,3,-10,,,,2,1,2,-10
+4,25,-10,,inter-finger only,virtual,4,-10,,,,2,2,1,-10
+4,26,10,,inter-finger only,virtual,4,10,,,,2,2,1,10
+4,27,-20,,inter-finger only,virtual,4,-20,,,,2,2,1,-20
+4,28,20,,inter-finger only,virtual,4,20,,,,2,2,1,20
+4,29,-20,,inter-finger only,virtual,4,-20,,,,2,2,2,-20
+4,30,20,,inter-finger only,virtual,4,20,,,,2,2,2,20
+4,31,-10,,inter-finger only,virtual,4,-10,,,,2,2,2,-10
+4,32,10,,inter-finger only,virtual,4,10,,,,2,2,2,10
+4,33,,20,extension only,virtual,5,20,,,,3,1,1,20
+4,34,,-10,extension only,virtual,5,-10,,,,3,1,1,-10
+4,35,,10,extension only,virtual,5,10,,,,3,1,1,10
+4,36,,-20,extension only,virtual,5,-20,,,,3,1,1,-20
+4,37,,-20,extension only,virtual,5,-20,,,,3,1,2,-20
+4,38,,10,extension only,virtual,5,10,,,,3,1,2,10
+4,39,,20,extension only,virtual,5,20,,,,3,1,2,20
+4,40,,-10,extension only,virtual,5,-10,,,,3,1,2,-10
+4,41,,20,extension only,real,6,20,,,,3,2,1,20
+4,42,,-10,extension only,real,6,-10,,,,3,2,1,-10
+4,43,,-20,extension only,real,6,-20,,,,3,2,1,-20
+4,44,,10,extension only,real,6,10,,,,3,2,1,10
+4,45,,-20,extension only,real,6,-20,,,,3,2,2,-20
+4,46,,20,extension only,real,6,20,,,,3,2,2,20
+4,47,,-10,extension only,real,6,-10,,,,3,2,2,-10
+4,48,,10,extension only,real,6,10,,,,3,2,2,10
+5,1,20.0,40.0,both,real,1,20,56,160,137.038,1,1,1,20,156
+5,2,-20.0,-40.0,both,real,1,-20,-34,42,104.524,1,1,1,-20,-29
+5,3,-10.0,-25.0,both,real,1,-10,-49,26,110.997,1,1,1,-10,-9
+5,4,10.0,25.0,both,real,1,10,21,117,117.373,1,1,1,10,71
+5,5,10.0,25.0,both,real,1,10,-39,51,159.536,1,1,2,10,11
+5,6,-20.0,-40.0,both,real,1,-20,-54,11,115.232,1,1,2,-20,-39
+5,7,-10.0,-25.0,both,real,1,-10,-64,51,94.412,1,1,2,-10,-19
+5,8,20.0,40.0,both,real,1,20,51,200,99.528,1,1,2,20,106
+5,9,10.0,25.0,both,virtual,2,10,1,96,116.177,1,2,1,10,21
+5,10,-10.0,-25.0,both,virtual,2,-10,-207,21,124.08,1,2,1,-10,-74
+5,11,-20.0,-40.0,both,virtual,2,-20,-99,26,91.44,1,2,1,-20,-39
+5,12,20.0,40.0,both,virtual,2,20,71,161,99.69,1,2,1,20,66
+5,13,-20.0,-40.0,both,virtual,2,-20,-79,52,139.633,1,2,2,-20,-34
+5,14,10.0,25.0,both,virtual,2,10,-14,56,70.041,1,2,2,10,26
+5,15,-10.0,-25.0,both,virtual,2,-10,-74,31,100.954,1,2,2,-10,-29
+5,16,20.0,40.0,both,virtual,2,20,86,200,89.109,1,2,2,20,146
+5,17,10.0,,inter-finger only,virtual,3,10,1,26,120.87,2,1,1,10,6
+5,18,-20.0,,inter-finger only,virtual,3,-20,-34,-4,131.496,2,1,1,-20,-14
+5,19,20.0,,inter-finger only,virtual,3,20,11,76,81.955,2,1,1,20,41
+5,20,-10.0,,inter-finger only,virtual,3,-10,-44,-1,95.259,2,1,1,-10,-9
+5,21,10.0,,inter-finger only,virtual,3,10,1,21,75.388,2,1,2,10,11
+5,22,20.0,,inter-finger only,virtual,3,20,20,76,83.565,2,1,2,20,36
+5,23,-10.0,,inter-finger only,virtual,3,-10,-74,-29,97.679,2,1,2,-10,-44
+5,24,-20.0,,inter-finger only,virtual,3,-20,-36,-2,53.596,2,1,2,-20,-21
+5,25,20.0,,inter-finger only,real,4,20,11,76,71.665,2,2,1,20,46
+5,26,-10.0,,inter-finger only,real,4,-10,-29,-9,69.108,2,2,1,-10,-9
+5,27,-20.0,,inter-finger only,real,4,-20,-59,-24,69.636,2,2,1,-20,-39
+5,28,10.0,,inter-finger only,real,4,10,6,20,73.915,2,2,1,10,5
+5,29,-10.0,,inter-finger only,real,4,-10,-49,-3,76.29,2,2,2,-10,-14
+5,30,-20.0,,inter-finger only,real,4,-20,-114,-19,49.165,2,2,2,-20,-54
+5,31,20.0,,inter-finger only,real,4,20,5,46,107.51,2,2,2,20,21
+5,32,10.0,,inter-finger only,real,4,10,6,81,109.913,2,2,2,10,51
+5,33,,-40.0,extension only,real,5,-20,1,1,82.838,3,1,1,-20,1
+5,34,,25.0,extension only,real,5,10,15,20,137.57,3,1,1,10,15
+5,35,,-25.0,extension only,real,5,-10,-6,-1,119.436,3,1,1,-10,-6
+5,36,,40.0,extension only,real,5,20,6,31,60.036,3,1,1,20,16
+5,37,,40.0,extension only,real,5,20,6,26,61.173,3,1,2,20,16
+5,38,,-25.0,extension only,real,5,-10,1,1,18.288,3,1,2,-10,1
+5,39,,-40.0,extension only,real,5,-20,1,1,22.622,3,1,2,-20,1
+5,40,,25.0,extension only,real,5,10,10,28,65.812,3,1,2,10,25
+5,41,,-40.0,extension only,virtual,6,-20,-6,-3,147.83,3,2,1,-20,4
+5,42,,-25.0,extension only,virtual,6,-10,-3,-1,82.145,3,2,1,-10,-3
+5,43,,25.0,extension only,virtual,6,10,6,31,66.727,3,2,1,10,11
+5,44,,40.0,extension only,virtual,6,20,6,51,63.354,3,2,1,20,36
+5,45,,40.0,extension only,virtual,6,20,11,46,77.699,3,2,2,20,21
+5,46,,-40.0,extension only,virtual,6,-20,1,-1,60.992,3,2,2,-20,1
+5,47,,25.0,extension only,virtual,6,10,3,24,76.978,3,2,2,10,14
+5,48,,-25.0,extension only,virtual,6,-10,1,1,42.871,3,2,2,-10,1
+6,1,,10,extension only,virtual,1,10,,,,1,1,1,10
+6,2,,20,extension only,virtual,1,20,,,,1,1,1,20
+6,3,,-20,extension only,virtual,1,-20,,,,1,1,1,-20
+6,4,,-10,extension only,virtual,1,-10,,,,1,1,1,-10
+6,5,,-20,extension only,virtual,1,-20,,,,1,1,2,-20
+6,6,,10,extension only,virtual,1,10,,,,1,1,2,10
+6,7,,-10,extension only,virtual,1,-10,,,,1,1,2,-10
+6,8,,20,extension only,virtual,1,20,,,,1,1,2,20
+6,9,,-10,extension only,real,2,-10,,,,1,2,1,-10
+6,10,,20,extension only,real,2,20,,,,1,2,1,20
+6,11,,10,extension only,real,2,10,,,,1,2,1,10
+6,12,,-20,extension only,real,2,-20,,,,1,2,1,-20
+6,13,,20,extension only,real,2,20,,,,1,2,2,20
+6,14,,-10,extension only,real,2,-10,,,,1,2,2,-10
+6,15,,10,extension only,real,2,10,,,,1,2,2,10
+6,16,,-20,extension only,real,2,-20,,,,1,2,2,-20
+6,17,-20,-20,both,real,3,-20,,,,2,1,1,-20
+6,18,20,20,both,real,3,20,,,,2,1,1,20
+6,19,-10,-10,both,real,3,-10,,,,2,1,1,-10
+6,20,10,10,both,real,3,10,,,,2,1,1,10
+6,21,10,10,both,real,3,10,,,,2,1,2,10
+6,22,-20,-20,both,real,3,-20,,,,2,1,2,-20
+6,23,20,20,both,real,3,20,,,,2,1,2,20
+6,24,-10,-10,both,real,3,-10,,,,2,1,2,-10
+6,25,20,20,both,virtual,4,20,,,,2,2,1,20
+6,26,10,10,both,virtual,4,10,,,,2,2,1,10
+6,27,-10,-10,both,virtual,4,-10,,,,2,2,1,-10
+6,28,-20,-20,both,virtual,4,-20,,,,2,2,1,-20
+6,29,-10,-10,both,virtual,4,-10,,,,2,2,2,-10
+6,30,20,20,both,virtual,4,20,,,,2,2,2,20
+6,31,-20,-20,both,virtual,4,-20,,,,2,2,2,-20
+6,32,10,10,both,virtual,4,10,,,,2,2,2,10
+6,33,20,,inter-finger only,virtual,5,20,,,,3,1,1,20
+6,34,-20,,inter-finger only,virtual,5,-20,,,,3,1,1,-20
+6,35,10,,inter-finger only,virtual,5,10,,,,3,1,1,10
+6,36,-10,,inter-finger only,virtual,5,-10,,,,3,1,1,-10
+6,37,-10,,inter-finger only,virtual,5,-10,,,,3,1,2,-10
+6,38,-20,,inter-finger only,virtual,5,-20,,,,3,1,2,-20
+6,39,10,,inter-finger only,virtual,5,10,,,,3,1,2,10
+6,40,20,,inter-finger only,virtual,5,20,,,,3,1,2,20
+6,41,-10,,inter-finger only,real,6,-10,,,,3,2,1,-10
+6,42,10,,inter-finger only,real,6,10,,,,3,2,1,10
+6,43,-20,,inter-finger only,real,6,-20,,,,3,2,1,-20
+6,44,20,,inter-finger only,real,6,20,,,,3,2,1,20
+6,45,-20,,inter-finger only,real,6,-20,,,,3,2,2,-20
+6,46,10,,inter-finger only,real,6,10,,,,3,2,2,10
+6,47,20,,inter-finger only,real,6,20,,,,3,2,2,20
+6,48,-10,,inter-finger only,real,6,-10,,,,3,2,2,-10
+7,1,-10,-10,both,real,1,-10,,,,1,1,1,-10
+7,2,-20,-20,both,real,1,-20,,,,1,1,1,-20
+7,3,20,20,both,real,1,20,,,,1,1,1,20
+7,4,10,10,both,real,1,10,,,,1,1,1,10
+7,5,20,20,both,real,1,20,,,,1,1,2,20
+7,6,-20,-20,both,real,1,-20,,,,1,1,2,-20
+7,7,-10,-10,both,real,1,-10,,,,1,1,2,-10
+7,8,10,10,both,real,1,10,,,,1,1,2,10
+7,9,20,20,both,virtual,2,20,,,,1,2,1,20
+7,10,-10,-10,both,virtual,2,-10,,,,1,2,1,-10
+7,11,-20,-20,both,virtual,2,-20,,,,1,2,1,-20
+7,12,10,10,both,virtual,2,10,,,,1,2,1,10
+7,13,10,10,both,virtual,2,10,,,,1,2,2,10
+7,14,-10,-10,both,virtual,2,-10,,,,1,2,2,-10
+7,15,20,20,both,virtual,2,20,,,,1,2,2,20
+7,16,-20,-20,both,virtual,2,-20,,,,1,2,2,-20
+7,17,,-10,extension only,virtual,3,-10,,,,2,1,1,-10
+7,18,,10,extension only,virtual,3,10,,,,2,1,1,10
+7,19,,-20,extension only,virtual,3,-20,,,,2,1,1,-20
+7,20,,20,extension only,virtual,3,20,,,,2,1,1,20
+7,21,,-10,extension only,virtual,3,-10,,,,2,1,2,-10
+7,22,,10,extension only,virtual,3,10,,,,2,1,2,10
+7,23,,-20,extension only,virtual,3,-20,,,,2,1,2,-20
+7,24,,20,extension only,virtual,3,20,,,,2,1,2,20
+7,25,,10,extension only,real,4,10,,,,2,2,1,10
+7,26,,-10,extension only,real,4,-10,,,,2,2,1,-10
+7,27,,20,extension only,real,4,20,,,,2,2,1,20
+7,28,,-20,extension only,real,4,-20,,,,2,2,1,-20
+7,29,,10,extension only,real,4,10,,,,2,2,2,10
+7,30,,-20,extension only,real,4,-20,,,,2,2,2,-20
+7,31,,20,extension only,real,4,20,,,,2,2,2,20
+7,32,,-10,extension only,real,4,-10,,,,2,2,2,-10
+7,33,-10,,inter-finger only,real,5,-10,,,,3,1,1,-10
+7,34,-20,,inter-finger only,real,5,-20,,,,3,1,1,-20
+7,35,10,,inter-finger only,real,5,10,,,,3,1,1,10
+7,36,20,,inter-finger only,real,5,20,,,,3,1,1,20
+7,37,-20,,inter-finger only,real,5,-20,,,,3,1,2,-20
+7,38,-10,,inter-finger only,real,5,-10,,,,3,1,2,-10
+7,39,10,,inter-finger only,real,5,10,,,,3,1,2,10
+7,40,20,,inter-finger only,real,5,20,,,,3,1,2,20
+7,41,20,,inter-finger only,virtual,6,20,,,,3,2,1,20
+7,42,-20,,inter-finger only,virtual,6,-20,,,,3,2,1,-20
+7,43,10,,inter-finger only,virtual,6,10,,,,3,2,1,10
+7,44,-10,,inter-finger only,virtual,6,-10,,,,3,2,1,-10
+7,45,20,,inter-finger only,virtual,6,20,,,,3,2,2,20
+7,46,10,,inter-finger only,virtual,6,10,,,,3,2,2,10
+7,47,-10,,inter-finger only,virtual,6,-10,,,,3,2,2,-10
+7,48,-20,,inter-finger only,virtual,6,-20,,,,3,2,2,-20
+8,1,20,,inter-finger only,real,1,20,,,,1,1,1,20
+8,2,-20,,inter-finger only,real,1,-20,,,,1,1,1,-20
+8,3,-10,,inter-finger only,real,1,-10,,,,1,1,1,-10
+8,4,10,,inter-finger only,real,1,10,,,,1,1,1,10
+8,5,-20,,inter-finger only,real,1,-20,,,,1,1,2,-20
+8,6,-10,,inter-finger only,real,1,-10,,,,1,1,2,-10
+8,7,10,,inter-finger only,real,1,10,,,,1,1,2,10
+8,8,20,,inter-finger only,real,1,20,,,,1,1,2,20
+8,9,-10,,inter-finger only,virtual,2,-10,,,,1,2,1,-10
+8,10,10,,inter-finger only,virtual,2,10,,,,1,2,1,10
+8,11,-20,,inter-finger only,virtual,2,-20,,,,1,2,1,-20
+8,12,20,,inter-finger only,virtual,2,20,,,,1,2,1,20
+8,13,-20,,inter-finger only,virtual,2,-20,,,,1,2,2,-20
+8,14,10,,inter-finger only,virtual,2,10,,,,1,2,2,10
+8,15,-10,,inter-finger only,virtual,2,-10,,,,1,2,2,-10
+8,16,20,,inter-finger only,virtual,2,20,,,,1,2,2,20
+8,17,-20,-20,both,virtual,3,-20,,,,2,1,1,-20
+8,18,-10,-10,both,virtual,3,-10,,,,2,1,1,-10
+8,19,20,20,both,virtual,3,20,,,,2,1,1,20
+8,20,10,10,both,virtual,3,10,,,,2,1,1,10
+8,21,-20,-20,both,virtual,3,-20,,,,2,1,2,-20
+8,22,20,20,both,virtual,3,20,,,,2,1,2,20
+8,23,10,10,both,virtual,3,10,,,,2,1,2,10
+8,24,-10,-10,both,virtual,3,-10,,,,2,1,2,-10
+8,25,10,10,both,real,4,10,,,,2,2,1,10
+8,26,-10,-10,both,real,4,-10,,,,2,2,1,-10
+8,27,-20,-20,both,real,4,-20,,,,2,2,1,-20
+8,28,20,20,both,real,4,20,,,,2,2,1,20
+8,29,10,10,both,real,4,10,,,,2,2,2,10
+8,30,-20,-20,both,real,4,-20,,,,2,2,2,-20
+8,31,-10,-10,both,real,4,-10,,,,2,2,2,-10
+8,32,20,20,both,real,4,20,,,,2,2,2,20
+8,33,,-10,extension only,real,5,-10,,,,3,1,1,-10
+8,34,,10,extension only,real,5,10,,,,3,1,1,10
+8,35,,20,extension only,real,5,20,,,,3,1,1,20
+8,36,,-20,extension only,real,5,-20,,,,3,1,1,-20
+8,37,,-10,extension only,real,5,-10,,,,3,1,2,-10
+8,38,,-20,extension only,real,5,-20,,,,3,1,2,-20
+8,39,,20,extension only,real,5,20,,,,3,1,2,20
+8,40,,10,extension only,real,5,10,,,,3,1,2,10
+8,41,,20,extension only,virtual,6,20,,,,3,2,1,20
+8,42,,-20,extension only,virtual,6,-20,,,,3,2,1,-20
+8,43,,-10,extension only,virtual,6,-10,,,,3,2,1,-10
+8,44,,10,extension only,virtual,6,10,,,,3,2,1,10
+8,45,,-20,extension only,virtual,6,-20,,,,3,2,2,-20
+8,46,,20,extension only,virtual,6,20,,,,3,2,2,20
+8,47,,10,extension only,virtual,6,10,,,,3,2,2,10
+8,48,,-10,extension only,virtual,6,-10,,,,3,2,2,-10
+9,1,,-20.0,extension only,virtual,1,-10,-28,15,91.275,1,1,1,-10,-20
+9,2,,40.0,extension only,virtual,1,20,14,74,77.303,1,1,1,20,49 *
+9,3,,-40.0,extension only,virtual,1,-20,-4,24,59.943,1,1,1,-20,1
+9,4,,20.0,extension only,virtual,1,10,14,65,88.9,1,1 ,1,10,46 *
+9,5,,-40.0,extension only,virtual,1,-20,1,1,22.431,1,1,2,-20,1
+9,6,,40.0,extension only,virtual,1,20,28,126,97.439,1,1,2,20,86
+9,7,,20.0,extension only,virtual,1,10,16,86,61.749,1,1,2,10,56 *
+9,8,,-20.0,extension only,virtual,1,-10,1,1,36.956,1,1,2,-10,1
+9,9,,40.0,extension only,real,2,20,31,77,72.901,1,2,1,20,58 *
+9,10,,5.0,extension only,real,2,10,25,100,109.982,2,1,10,,65 *
+9,11,,-40.0,extension only,real,2,-20,50,50,154.62,1,2,1,-20,50
+9,12,,-10.0,extension only,real,2,-10,0,0,166.717,1,2,1,-10,0
+9,13,,40.0,extension only,real,2,20,15,80,253.242,1,2,2,20,50
+9,14,,5.0,extension only,real,2,10,10,70,423.989,1,2,2,10,35
+9,15,,-40.0,extension only,real,2,-20,1,1,9.026,1,2,2,-20,1
+9,16,,-10.0,extension only,real,2,-10,0,0,21.414,1,2,2,-10,0
+9,17,-10.0,,inter-finger only,real,3,-10,-24,0,72.164,2,1,1,-10,-9
+9,18,10.0,,inter-finger only,real,3,10,5,25,139.495,2,1,1,10,15
+9,19,-20.0,,inter-finger only,real,3,-20,-40,-5,227.799,2,1,1,-20,-20
+9,20,20.0,,inter-finger only,real,3,20,10,40,291.257,2,1,1,20,25
+9,21,20.0,,inter-finger only,real,3,20,-5,40,386.879,2,1,2,20,15
+9,22,-20.0,,inter-finger only,real,3,-20,-39,15,77.719,2,1,2,-20,-10
+9,23,-10.0,,inter-finger only,real,3,-10,-35,10,141.455,2,1,2,-10,-10
+9,24,10.0,,inter-finger only,real,3,10,-5,35,203.773,2,1,2,10,20
+9,25,-20.0,,inter-finger only,virtual,4,-20,-44,-14,39.691,2,2,1,-20,-34
+9,26,10.0,,inter-finger only,virtual,4,10,-5,30,79.399,2,2,1,10,15
+9,27,20.0,,inter-finger only,virtual,4,20,20,55,184.397,2,2,1,20,40
+9,28,-10.0,,inter-finger only,virtual,4,-10,-40,10,245.271,2,2,1,-10,-25
+9,,29,-20.0,,inter-finger only,virtual,4,-20,-44,-9,51.734,2,2,2,-20,-29
+9,30,-10.0,,inter-finger only,virtual,4,20,20,65,26.4,2,2,2,20,-14
+9,31,10.0,,inter-finger only,virtual,4,10,1,41,39.513,2,2,2,10,21
+9,32,-10.0,,inter-finger only,virtual,4,-10,-30,-5,79.443,2,2,2,-10,-15
+9,33,-10.0,-5.0,both,virtual,5,-10,-49,-49,10.387,3,1,1,-10,-34
+9,34,10.0,3.0,both,virtual,5,10,31,31,15.719,3,1,1,10,31
+9,35,20.0,10.0,both,virtual,5,20,14,56,30.648,3,1,1,20,36
+9,36,-20.0,-10.0,both,virtual,5,-20,-44,-14,36.995,3,1,1,-20,-34
+9,37,-20.0,-10.0,both,virtual,5,-20,-50,-15,89.406,3,1,2,-20,-35
+9,38,20.0,10.0,both,virtual,5,20,15,55,127.027,3,1,2,20,35
+9,39,-10.0,-3.0,both,virtual,5,-10,-34,6,26.578,3,1,2,-10,-19
+9,40,10.0,3.0,both,virtual,5,10,25,25,50.619,3,1,2,10,25
+9,41,20.0,10.0,both,real,6,20,41,41,16.636,3,2,1,20,41
+9,42,-20.0,-10.0,both,real,6,-20,-34,-34,33.175,3,2,1,-20,-34
+9,43,10.0,3.0,both,real,6,10,26,26,43.272,3,2,1,10,26
+9,44,-10.0,-3.0,both,real,6,-10,-19,-19,20.038,3,2,1,-10,-19
+9,45,-20.0,-10.0,both,real,6,-20,-30,-30,36.372,3,2,2,-20,-30
+9,46,20.0,10.0,both,real,6,20,40,40,61.009,3,2,2,20,40
+9,47,10.0,3.0,both,real,6,10,26,26,12.622,3,2,2,10,26
+9,48,-10.0,-3.0,both,real,6,-10,-24,-24,16.954,3,2,2,-10,-24
+9,48,-10,-10,both,real,6,-10,,,,3,2,2,-10
+10,1,10.0,,inter-finger only,virtual,1,10,57,121,127.857,1,1,1,10,67
+10,2,-20.0,,inter-finger only,virtual,1,-20,-58,-27,80.83,1,1,1,-20,-43
+10,3,-10.0,,inter-finger only,virtual,1,10,-20,-9,129.647,1,1,1,10,-12
+10,4,20.0,,inter-finger only,virtual,1,20,90,152,68.593,1,1,1,20,110
+10,5,20.0,,inter-finger only,virtual,1,20,104,158,65.388,1,1,2,20,128
+10,6,10.0,,inter-finger only,virtual,1,10,40,65,76.275,1,1,2,10,47
+10,7,-10.0,,inter-finger only,virtual,1,-10,-34,-7,62.831,1,1,2,-10,-21
+10,8,-20.0,,inter-finger only,virtual,1,-20,-33,-15,45.428,1,1,1,-20,-24
+10,9,20.0,,inter-finger only,real,2,20,31,61,126.08,1,2,1,20,61
+10,10,-10.0,,inter-finger only,real,2,-10,-27,-11,71.331,1,2,1,-10,-11
+10,11,-20.0,,inter-finger only,real,2,-20,-56,-15,68.593,1,1,1,20,-55
+10,12,10.0,,inter-finger only,real,2,10,21,35,74.844,1,2,1,10,31
+10,13,-10.0,,inter-finger only,real,2,-10,-41,-24,49.939,1,2,2,-10,-34*
+10,14,-20.0,,inter-finger only,real,2,-20,-56,-40,57.971,1,2,2,-20,-45
+10,15,20.0,,inter-finger only,real,2,20,56,95,62.984,1,2,2,20,73
+10,16,10.0,,inter-finger only,real,2,10,29,76,177.147,1,2,2,10,41
+10,17,,40.0,extension only,real,3,20,1,1,41.855,2,1,1,20,1
+10,18,,-25.0,extension only,real,3,-10,1,1,17.164,2,1,1,-10,1
+10,19,,25.0,extension only,real,3,10,1,1,26.509,2,1,1,10,1
+10,20,,-40.0,extension only,real,3,-20,1,1,12.582,2,1,1,-20,1
+10,21,,-40.0,extension only,real,3,-20,1,1,15.176,2,1,2,-20,1
+10,22,,25.0,extension only,real,3,10,1,1,9.754,2,1,2,10,1
+10,23,,40.0,extension only,real,3,20,1,1,11.803,2,1,2,20,1
+10,24,,-25.0,extension only,real,3,-10,1,1,8.844,2,1,2,-10,1
+10,25,,40.0,extension only,virtual,4,20,56,95,62.984,1,2,2,20,73
+10,26,,-40.0,extension only,virtual,4,-20,-25,-9,72.255,2,2,1,-20,-15
+10,27,,25.0,extension only,virtual,4,10,22,46,58.105,2,2,1,10,36
+10,28,,-25.0,extension only,virtual,4,-10,-12,-3,57.269,2,2,1,-10,-6
+10,29,,-40.0,extension only,virtual,4,-20,-56,-40,57.971,1,2,2,-20,-45
+10,30,,-25.0,extension only,virtual,4,-10,-22,-13,50.132,2,2,2,-10,-17 *
+10,31,,40.0,extension only,virtual,4,20,51,92,66.631,2,2,2,20,73
+10,32,,25.0,extension only,virtual,4,10,29,76,177.147,1,2,2,10,41
+10,33,-20,-20,both,virtual,5,-20,,,,3,1,1,-20
+10,34,-10,-10,both,virtual,5,-10,,,,3,1,1,-10
+10,35,10,10,both,virtual,5,10,,,,3,1,1,10
+10,36,20,20,both,virtual,5,20,,,,3,1,1,20
+10,37,-10,-10,both,virtual,5,-10,,,,3,1,2,-10
+10,38,10,10,both,virtual,5,10,,,,3,1,2,10
+10,39,-20,-20,both,virtual,5,-20,,,,3,1,2,-20
+10,40,20,20,both,virtual,5,20,,,,3,1,2,20
+10,41,10,10,both,real,6,10,,,,3,2,1,10
+10,42,-20,-20,both,real,6,-20,,,,3,2,1,-20
+10,43,-10,-10,both,real,6,-10,,,,3,2,1,-10
+10,44,20,20,both,real,6,20,,,,3,2,1,20
+10,45,20,20,both,real,6,20,,,,3,2,2,20
+10,46,10,10,both,real,6,10,,,,3,2,2,10
+10,47,-10,-10,both,real,6,-10,,,,3,2,2,-10
+10,48,-20,-20,both,real,6,-20,,,,3,2,2,-20
+11,1,20.0,,inter-finger only,real,1,20,43,76,148.995,1,1,1,20,51
+11,2,-20.0,,inter-finger only,real,1,-20,-33,-16,68.621,1,1,1,-20,-18
+11,3,10.0,,inter-finger only,real,1,10,19,50,89.982,1,1,1,10,41
+11,4,-10.0,,inter-finger only,real,1,-10,-27,-7,48.731,1,1,1,-10,-16
+11,5,-10.0,,inter-finger only,real,1,-10,-29,5,151.688,1,1,2,-10,-19
+11,6,20.0,,inter-finger only,real,1,20,29,59,36.656,1,1,2,20,39
+11,7,10.0,,inter-finger only,real,1,10,2,12,22.11,1,1,2,10,9
+11,8,-20.0,,inter-finger only,real,1,-20,-22,-10,36.818,1,1,2,-20,-19
+11,9,-10.0,,inter-finger only,virtual,2,-10,-25,-4,24.206,1,2,1,-10,-20
+11,10,-20.0,,inter-finger only,virtual,2,-20,-26,-15,35.528,1,2,1,-20,-16
+11,11,10.0,,inter-finger only,virtual,2,10,4,34,70.621,1,2,1,10,11
+11,12,20.0,,inter-finger only,virtual,2,20,44,61,88.677,1,2,1,20,46
+11,13,-20.0,,inter-finger only,virtual,2,-20,-26,-17,105.136,1,2,2,-20,-29
+11,14,10.0,,inter-finger only,virtual,2,10,27,51,161.87,1,2,2,10,16
+11,15,20.0,,inter-finger only,virtual,2,20,80,119,115.399,1,2,2,20,108
+11,16,-10.0,,inter-finger only,virtual,2,-10,-42,-15,69.914,1,2,2,-10,-29
+11,17,,-20,extension only,virtual,3,-20,,,,2,1,1,-20
+11,18,,-10,extension only,virtual,3,-10,,,,2,1,1,-10
+11,19,,10,extension only,virtual,3,10,,,,2,1,1,10
+11,20,,20,extension only,virtual,3,20,,,,2,1,1,20
+11,21,,10,extension only,virtual,3,10,,,,2,1,2,10
+11,22,,-10,extension only,virtual,3,-10,,,,2,1,2,-10
+11,23,,20,extension only,virtual,3,20,,,,2,1,2,20
+11,24,,-20,extension only,virtual,3,-20,,,,2,1,2,-20
+11,25,,-20,extension only,real,4,-20,,,,2,2,1,-20
+11,26,,-10,extension only,real,4,-10,,,,2,2,1,-10
+11,27,,20,extension only,real,4,20,,,,2,2,1,20
+11,28,,10,extension only,real,4,10,,,,2,2,1,10
+11,29,,10,extension only,real,4,10,,,,2,2,2,10
+11,30,,20,extension only,real,4,20,,,,2,2,2,20
+11,31,,-10,extension only,real,4,-10,,,,2,2,2,-10
+11,32,,-20,extension only,real,4,-20,,,,2,2,2,-20
+11,33,-10,-10,both,real,5,-10,,,,3,1,1,-10
+11,34,20,20,both,real,5,20,,,,3,1,1,20
+11,35,-20,-20,both,real,5,-20,,,,3,1,1,-20
+11,36,10,10,both,real,5,10,,,,3,1,1,10
+11,37,10,10,both,real,5,10,,,,3,1,2,10
+11,38,-20,-20,both,real,5,-20,,,,3,1,2,-20
+11,39,-10,-10,both,real,5,-10,,,,3,1,2,-10
+11,40,20,20,both,real,5,20,,,,3,1,2,20
+11,41,-10,-10,both,virtual,6,-10,,,,3,2,1,-10
+11,42,20,20,both,virtual,6,20,,,,3,2,1,20
+11,43,-20,-20,both,virtual,6,-20,,,,3,2,1,-20
+11,44,10,10,both,virtual,6,10,,,,3,2,1,10
+11,45,10,10,both,virtual,6,10,,,,3,2,2,10
+11,46,20,20,both,virtual,6,20,,,,3,2,2,20
+11,47,-20,-20,both,virtual,6,-20,,,,3,2,2,-20
+11,48,-10,-10,both,virtual,6,-10,,,,3,2,2,-10
+12,1,20,20,both,virtual,1,20,,,,1,1,1,20
+12,2,10,10,both,virtual,1,10,,,,1,1,1,10
+12,3,-10,-10,both,virtual,1,-10,,,,1,1,1,-10
+12,4,-20,-20,both,virtual,1,-20,,,,1,1,1,-20
+12,5,20,20,both,virtual,1,20,,,,1,1,2,20
+12,6,10,10,both,virtual,1,10,,,,1,1,2,10
+12,7,-10,-10,both,virtual,1,-10,,,,1,1,2,-10
+12,8,-20,-20,both,virtual,1,-20,,,,1,1,2,-20
+12,9,-20,-20,both,real,2,-20,,,,1,2,1,-20
+12,10,20,20,both,real,2,20,,,,1,2,1,20
+12,11,10,10,both,real,2,10,,,,1,2,1,10
+12,12,-10,-10,both,real,2,-10,,,,1,2,1,-10
+12,13,20,20,both,real,2,20,,,,1,2,2,20
+12,14,-20,-20,both,real,2,-20,,,,1,2,2,-20
+12,15,-10,-10,both,real,2,-10,,,,1,2,2,-10
+12,16,10,10,both,real,2,10,,,,1,2,2,10
+12,17,,-40.0,extension only,real,3,-20,0,0,189.518,2,1,1,-20,0
+12,18,,25.0,extension only,real,3,10,20,38,86.429,2,1,1,10,27
+12,19,,40.0,extension only,real,3,20,24,38,23.205,2,1,1,20,31
+12,20,,-25.0,extension only,real,3,-10,-9,-3,64.289,2,1,1,-10,-6
+12,21,,10,extension only,real,3,10,,,,2,1,2,10
+12,22,,20,extension only,real,3,20,,,,2,1,2,20
+12,23,,-20,extension only,real,3,-20,,,,2,1,2,-20
+12,24,,-10,extension only,real,3,-10,,,,2,1,2,-10
+12,25,,-20,extension only,virtual,4,-20,,,,2,2,1,-20
+12,26,,20,extension only,virtual,4,20,,,,2,2,1,20
+12,27,,-10,extension only,virtual,4,-10,,,,2,2,1,-10
+12,28,,10,extension only,virtual,4,10,,,,2,2,1,10
+12,29,,10,extension only,virtual,4,10,,,,2,2,2,10
+12,30,,20,extension only,virtual,4,20,,,,2,2,2,20
+12,31,,-20,extension only,virtual,4,-20,,,,2,2,2,-20
+12,32,,-10,extension only,virtual,4,-10,,,,2,2,2,-10
+12,33,10,,inter-finger only,virtual,5,10,,,,3,1,1,10
+12,34,-20,,inter-finger only,virtual,5,-20,,,,3,1,1,-20
+12,35,20,,inter-finger only,virtual,5,20,,,,3,1,1,20
+12,36,-10,,inter-finger only,virtual,5,-10,,,,3,1,1,-10
+12,37,-10,,inter-finger only,virtual,5,-10,,,,3,1,2,-10
+12,38,-20,,inter-finger only,virtual,5,-20,,,,3,1,2,-20
+12,39,10,,inter-finger only,virtual,5,10,,,,3,1,2,10
+12,40,20,,inter-finger only,virtual,5,20,,,,3,1,2,20
+12,41,20,,inter-finger only,real,6,20,,,,3,2,1,20
+12,42,10,,inter-finger only,real,6,10,,,,3,2,1,10
+12,43,-10,,inter-finger only,real,6,-10,,,,3,2,1,-10
+12,44,-20,,inter-finger only,real,6,-20,,,,3,2,1,-20
+12,45,-20,,inter-finger only,real,6,-20,,,,3,2,2,-20
+12,46,10,,inter-finger only,real,6,10,,,,3,2,2,10
+12,47,20,,inter-finger only,real,6,20,,,,3,2,2,20
+12,48,-10,,inter-finger only,real,6,-10,,,,3,2,2,-10

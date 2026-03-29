@@ -1,0 +1,55 @@
+﻿UserID,Trial_no,k,Method,ObjectType,Repitition,Block,best,lowerbound,upperbound,duration,MethodBlock,ObjectBlock
+4,1,s,extension only,real hard ball,1,1,,,,,1,1
+4,2,m,extension only,real hard ball,1,1,,,,,1,1
+4,3,h,extension only,real hard ball,1,1,,,,,1,1
+4,4,s,extension only,real hard ball,2,1,,,,,1,1
+4,5,m,extension only,real hard ball,2,1,,,,,1,1
+4,6,h,extension only,real hard ball,2,1,,,,,1,1
+4,7,m,extension only,real soft ball,1,2,,,,,1,2
+4,8,s,extension only,real soft ball,1,2,,,,,1,2
+4,9,h,extension only,real soft ball,1,2,,,,,1,2
+4,10,h,extension only,real soft ball,2,2,,,,,1,2
+4,11,m,extension only,real soft ball,2,2,,,,,1,2
+4,12,s,extension only,real soft ball,2,2,,,,,1,2
+4,13,m,extension only,virtual,1,3,,,,,1,3
+4,14,h,extension only,virtual,1,3,,,,,1,3
+4,15,s,extension only,virtual,1,3,,,,,1,3
+4,16,h,extension only,virtual,2,3,,,,,1,3
+4,17,s,extension only,virtual,2,3,,,,,1,3
+4,18,m,extension only,virtual,2,3,,,,,1,3
+4,19,h,inter-finger only,real soft ball,1,4,,,,,2,1
+4,20,s,inter-finger only,real soft ball,1,4,,,,,2,1
+4,21,m,inter-finger only,real soft ball,1,4,,,,,2,1
+4,22,s,inter-finger only,real soft ball,2,4,,,,,2,1
+4,23,h,inter-finger only,real soft ball,2,4,,,,,2,1
+4,24,m,inter-finger only,real soft ball,2,4,,,,,2,1
+4,25,m,inter-finger only,virtual,1,5,,,,,2,2
+4,26,s,inter-finger only,virtual,1,5,,,,,2,2
+4,27,h,inter-finger only,virtual,1,5,,,,,2,2
+4,28,m,inter-finger only,virtual,2,5,,,,,2,2
+4,29,h,inter-finger only,virtual,2,5,,,,,2,2
+4,30,s,inter-finger only,virtual,2,5,,,,,2,2
+4,31,h,inter-finger only,real hard ball,1,6,,,,,2,3
+4,32,m,inter-finger only,real hard ball,1,6,,,,,2,3
+4,33,s,inter-finger only,real hard ball,1,6,,,,,2,3
+4,34,s,inter-finger only,real hard ball,2,6,,,,,2,3
+4,35,h,inter-finger only,real hard ball,2,6,,,,,2,3
+4,36,m,inter-finger only,real hard ball,2,6,,,,,2,3
+4,37,h,both,real soft ball,1,7,,,,,3,1
+4,38,s,both,real soft ball,1,7,,,,,3,1
+4,39,m,both,real soft ball,1,7,,,,,3,1
+4,40,m,both,real soft ball,2,7,,,,,3,1
+4,41,s,both,real soft ball,2,7,,,,,3,1
+4,42,h,both,real soft ball,2,7,,,,,3,1
+4,43,h,both,real hard ball,1,8,,,,,3,2
+4,44,s,both,real hard ball,1,8,,,,,3,2
+4,45,m,both,real hard ball,1,8,,,,,3,2
+4,46,s,both,real hard ball,2,8,,,,,3,2
+4,47,m,both,real hard ball,2,8,,,,,3,2
+4,48,h,both,real hard ball,2,8,,,,,3,2
+4,49,h,both,virtual,1,9,,,,,3,3
+4,50,s,both,virtual,1,9,,,,,3,3
+4,51,m,both,virtual,1,9,,,,,3,3
+4,52,s,both,virtual,2,9,,,,,3,3
+4,53,m,both,virtual,2,9,,,,,3,3
+4,54,h,both,virtual,2,9,,,,,3,3
