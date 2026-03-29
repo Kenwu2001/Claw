@@ -926,6 +926,18 @@ public class BallFlyController : MonoBehaviour
         ballRb.angularVelocity = Vector3.zero;
     }
 
+    public void RestartFromLevelStart()
+    {
+        StopPreviewLoop();
+
+        isAnimating = false;
+        _isPreparingPlay = false;
+        adjustmentsUnlocked = false;
+
+        ResetBallToStart();
+        SetAllControls(true);
+    }
+
     public void Nudge(float step)
     {
         if (!adjustmentsUnlocked || isAnimating) return;
