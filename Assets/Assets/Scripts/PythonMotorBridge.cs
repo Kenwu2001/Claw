@@ -401,4 +401,23 @@ public class PythonMotorBridge : MonoBehaviour
     {
         return await SendCommandAsync("REBOOT");
     }
+
+    public async Task<string> SendRawCommandAsync(string cmd)
+    {
+        if (string.IsNullOrWhiteSpace(cmd))
+            return "K";
+
+        string normalized = cmd.Trim();
+
+        if (string.Equals(normalized, "C", StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.Log("[PythonBridge] Sending raw command C");
+        }
+        else if (string.Equals(normalized, "A", StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.Log("[PythonBridge] Sending raw command A");
+        }
+
+        return await SendCommandAsync(normalized);
+    }
 }

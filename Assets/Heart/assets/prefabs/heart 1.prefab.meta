@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7244ef4310be2974789226e60e52553a
+timeCreated: 1448294956
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 21255
+  packageName: Heart
+  packageVersion: 1.2
+  assetPath: Assets/Heart/assets/prefabs/heart 1.prefab
+  uploadId: 91098

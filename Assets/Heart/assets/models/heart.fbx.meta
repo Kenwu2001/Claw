@@ -1,0 +1,451 @@
+fileFormatVersion: 2
+guid: fd6b040b29906ba469c05d0765968bcb
+AssetOrigin:
+  serializedVersion: 1
+  productId: 21255
+  packageName: Heart
+  packageVersion: 1.2
+  assetPath: Assets/Heart/assets/models/heart.fbx
+  uploadId: 91098
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Armature
+  - first:
+      1: 100002
+    second: Bone
+  - first:
+      1: 100004
+    second: Bone.001
+  - first:
+      1: 100006
+    second: Bone.001_end
+  - first:
+      1: 100008
+    second: Bone.002
+  - first:
+      1: 100010
+    second: Bone.002_end
+  - first:
+      1: 100012
+    second: Bone.003
+  - first:
+      1: 100014
+    second: Bone.003_end
+  - first:
+      1: 100016
+    second: Bone.004
+  - first:
+      1: 100018
+    second: Bone.004_end
+  - first:
+      1: 100020
+    second: Bone.005
+  - first:
+      1: 100022
+    second: Bone.005_end
+  - first:
+      1: 100024
+    second: Bone.006
+  - first:
+      1: 100026
+    second: Bone.006_end
+  - first:
+      1: 100028
+    second: Bone.007
+  - first:
+      1: 100030
+    second: Bone.007_end
+  - first:
+      1: 100032
+    second: Bone.008
+  - first:
+      1: 100034
+    second: Bone.008_end
+  - first:
+      1: 100036
+    second: //RootNode
+  - first:
+      1: 100038
+    second: heart_LOD0
+  - first:
+      1: 100040
+    second: heart_LOD1
+  - first:
+      1: 100042
+    second: heart_LOD2
+  - first:
+      1: 100044
+    second: heart_LOD3
+  - first:
+      4: 400000
+    second: Armature
+  - first:
+      4: 400002
+    second: Bone
+  - first:
+      4: 400004
+    second: Bone.001
+  - first:
+      4: 400006
+    second: Bone.001_end
+  - first:
+      4: 400008
+    second: Bone.002
+  - first:
+      4: 400010
+    second: Bone.002_end
+  - first:
+      4: 400012
+    second: Bone.003
+  - first:
+      4: 400014
+    second: Bone.003_end
+  - first:
+      4: 400016
+    second: Bone.004
+  - first:
+      4: 400018
+    second: Bone.004_end
+  - first:
+      4: 400020
+    second: Bone.005
+  - first:
+      4: 400022
+    second: Bone.005_end
+  - first:
+      4: 400024
+    second: Bone.006
+  - first:
+      4: 400026
+    second: Bone.006_end
+  - first:
+      4: 400028
+    second: Bone.007
+  - first:
+      4: 400030
+    second: Bone.007_end
+  - first:
+      4: 400032
+    second: Bone.008
+  - first:
+      4: 400034
+    second: Bone.008_end
+  - first:
+      4: 400036
+    second: //RootNode
+  - first:
+      4: 400038
+    second: heart_LOD0
+  - first:
+      4: 400040
+    second: heart_LOD1
+  - first:
+      4: 400042
+    second: heart_LOD2
+  - first:
+      4: 400044
+    second: heart_LOD3
+  - first:
+      43: 4300000
+    second: heart_LOD3
+  - first:
+      43: 4300002
+    second: heart_LOD2
+  - first:
+      43: 4300004
+    second: heart_LOD1
+  - first:
+      43: 4300006
+    second: heart_LOD0
+  - first:
+      74: 7400000
+    second: Armature|ArmatureAction
+  - first:
+      74: 7400002
+    second: Armature|Base
+  - first:
+      74: 7400004
+    second: Armature|Pumping
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      111: 11100000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: heart_LOD0
+  - first:
+      137: 13700002
+    second: heart_LOD1
+  - first:
+      137: 13700004
+    second: heart_LOD2
+  - first:
+      137: 13700006
+    second: heart_LOD3
+  - first:
+      205: 20500000
+    second: //RootNode
+  externalObjects: {}
+  materials:
+    materialImportMode: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Pumping
+      takeName: Armature|Pumping
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 10
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bone.001
+        weight: 1
+      - path: Armature/Bone/Bone.001/Bone.001_end
+        weight: 1
+      - path: Armature/Bone/Bone.002
+        weight: 1
+      - path: Armature/Bone/Bone.002/Bone.002_end
+        weight: 1
+      - path: Armature/Bone/Bone.003
+        weight: 1
+      - path: Armature/Bone/Bone.003/Bone.003_end
+        weight: 1
+      - path: Armature/Bone/Bone.004
+        weight: 1
+      - path: Armature/Bone/Bone.004/Bone.004_end
+        weight: 1
+      - path: Armature/Bone/Bone.005
+        weight: 1
+      - path: Armature/Bone/Bone.005/Bone.005_end
+        weight: 1
+      - path: Armature/Bone/Bone.006
+        weight: 1
+      - path: Armature/Bone/Bone.006/Bone.006_end
+        weight: 1
+      - path: Armature/Bone/Bone.007
+        weight: 1
+      - path: Armature/Bone/Bone.007/Bone.007_end
+        weight: 1
+      - path: Armature/Bone/Bone.008
+        weight: 1
+      - path: Armature/Bone/Bone.008/Bone.008_end
+        weight: 1
+      - path: heart_LOD0
+        weight: 1
+      - path: heart_LOD1
+        weight: 1
+      - path: heart_LOD2
+        weight: 1
+      - path: heart_LOD3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Base
+      takeName: Armature|Base
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bone.001
+        weight: 1
+      - path: Armature/Bone/Bone.001/Bone.001_end
+        weight: 1
+      - path: Armature/Bone/Bone.002
+        weight: 1
+      - path: Armature/Bone/Bone.002/Bone.002_end
+        weight: 1
+      - path: Armature/Bone/Bone.003
+        weight: 1
+      - path: Armature/Bone/Bone.003/Bone.003_end
+        weight: 1
+      - path: Armature/Bone/Bone.004
+        weight: 1
+      - path: Armature/Bone/Bone.004/Bone.004_end
+        weight: 1
+      - path: Armature/Bone/Bone.005
+        weight: 1
+      - path: Armature/Bone/Bone.005/Bone.005_end
+        weight: 1
+      - path: Armature/Bone/Bone.006
+        weight: 1
+      - path: Armature/Bone/Bone.006/Bone.006_end
+        weight: 1
+      - path: Armature/Bone/Bone.007
+        weight: 1
+      - path: Armature/Bone/Bone.007/Bone.007_end
+        weight: 1
+      - path: Armature/Bone/Bone.008
+        weight: 1
+      - path: Armature/Bone/Bone.008/Bone.008_end
+        weight: 1
+      - path: heart_LOD0
+        weight: 1
+      - path: heart_LOD1
+        weight: 1
+      - path: heart_LOD2
+        weight: 1
+      - path: heart_LOD3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 1
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

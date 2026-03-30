@@ -19,6 +19,12 @@ public class LevelSequenceManager : MonoBehaviour
     [Tooltip("按下此鍵，直接從第二關開始")]
     public KeyCode startLevel2Key = KeyCode.Alpha2;
 
+    [Tooltip("按下此鍵，直接從第三關開始")]
+    public KeyCode startLevel3Key = KeyCode.Alpha3;
+
+    [Tooltip("按下此鍵，直接從第四關開始")]
+    public KeyCode startLevel4Key = KeyCode.Alpha4;
+
     [Header("End Behavior")]
     [Tooltip("最後一關完成後是否循環回第一關")]
     public bool loopAfterLastLevel = false;
@@ -48,6 +54,16 @@ public class LevelSequenceManager : MonoBehaviour
         if (Input.GetKeyDown(startLevel2Key) || Input.GetKeyDown(KeyCode.Keypad2))
         {
             StartFromLevel(2);
+        }
+
+        if (Input.GetKeyDown(startLevel3Key) || Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            StartFromLevel(3);
+        }
+
+        if (Input.GetKeyDown(startLevel4Key) || Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            StartFromLevel(4);
         }
     }
 
