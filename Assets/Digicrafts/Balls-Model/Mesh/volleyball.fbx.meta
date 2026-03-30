@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 2af3e158c01984d70ad3342a81a73456
+timeCreated: 1461069796
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: base
+    100002: baseball
+    100004: basketball
+    100006: basketball_low
+    100008: beachball
+    100010: clock
+    100012: clock_hand
+    100014: Curve
+    100016: easter_egg
+    100018: football
+    100020: football_low
+    100022: footballus
+    100024: golf
+    100026: Lamp.000
+    100028: Lamp.001
+    100030: Lamp.002
+    100032: Lamp.003
+    100034: Lamp.004
+    100036: Lamp.005
+    100038: pingpong
+    100040: powerup_1
+    100042: powerup_2
+    100044: powerup_2_new
+    100046: powerup_3
+    100048: spears
+    100050: tennis
+    100052: volleyball
+    100054: //RootNode
+    400000: base
+    400002: baseball
+    400004: basketball
+    400006: basketball_low
+    400008: beachball
+    400010: clock
+    400012: clock_hand
+    400014: Curve
+    400016: easter_egg
+    400018: football
+    400020: football_low
+    400022: footballus
+    400024: golf
+    400026: Lamp.000
+    400028: Lamp.001
+    400030: Lamp.002
+    400032: Lamp.003
+    400034: Lamp.004
+    400036: Lamp.005
+    400038: pingpong
+    400040: powerup_1
+    400042: powerup_2
+    400044: powerup_2_new
+    400046: powerup_3
+    400048: spears
+    400050: tennis
+    400052: //RootNode
+    400054: volleyball
+    2300000: base
+    2300002: baseball
+    2300004: basketball
+    2300006: basketball_low
+    2300008: beachball
+    2300010: clock
+    2300012: clock_hand
+    2300014: Curve
+    2300016: easter_egg
+    2300018: football
+    2300020: football_low
+    2300022: footballus
+    2300024: golf
+    2300026: pingpong
+    2300028: powerup_1
+    2300030: powerup_2
+    2300032: powerup_2_new
+    2300034: powerup_3
+    2300036: spears
+    2300038: tennis
+    2300040: volleyball
+    2300042: //RootNode
+    3300000: base
+    3300002: baseball
+    3300004: basketball
+    3300006: basketball_low
+    3300008: beachball
+    3300010: clock
+    3300012: clock_hand
+    3300014: Curve
+    3300016: easter_egg
+    3300018: football
+    3300020: football_low
+    3300022: footballus
+    3300024: golf
+    3300026: pingpong
+    3300028: powerup_1
+    3300030: powerup_2
+    3300032: powerup_2_new
+    3300034: powerup_3
+    3300036: spears
+    3300038: tennis
+    3300040: volleyball
+    3300042: //RootNode
+    4300000: beachball
+    4300002: easter_egg
+    4300004: Curve
+    4300006: clock_hand
+    4300008: clock
+    4300010: football_low
+    4300012: basketball_low
+    4300014: powerup_2_new
+    4300016: powerup_1
+    4300018: spears
+    4300020: base
+    4300022: pingpong
+    4300024: footballus
+    4300026: golf
+    4300028: volleyball
+    4300030: football
+    4300032: tennis
+    4300034: baseball
+    4300036: basketball
+    4300038: powerup_2
+    4300040: powerup_3
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

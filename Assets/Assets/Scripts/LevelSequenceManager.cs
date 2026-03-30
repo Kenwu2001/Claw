@@ -6,6 +6,10 @@ public class LevelSequenceManager : MonoBehaviour
     [Tooltip("依序填入每一關要顯示的互動物件，例如：Element 0 = Ball, Element 1 = Cat")]
     public GameObject[] levelTargets;
 
+    [Header("Optional Input Rebinding")]
+    [Tooltip("切關時自動把左手控制器輸入改綁到目前關卡的 BallFlyController")]
+    public OVRLeftControllerInputForBallFly leftControllerInput;
+
     [Header("Start")]
     [Tooltip("進入 Unity Play Mode 時從第幾關開始（1-based）")]
     public int startLevel = 1;
@@ -124,10 +128,24 @@ public class LevelSequenceManager : MonoBehaviour
             BallFlyController ballFly = activeTarget.GetComponentInChildren<BallFlyController>(true);
             if (ballFly != null)
             {
+                RebindInput(ballFly);
                 ballFly.RestartFromLevelStart();
             }
         }
 
         Debug.Log($"[LevelSequence] Active Level: {CurrentLevelIndex + 1}");
+    }
+
+    private void RebindInput(BallFlyController ballFly)
+    {
+        if (ballFly == null) return;
+
+        if (leftControllerInput == null)
+            leftControllerInput = FindAnyObjectByType<OVRLeftControllerInputForBallFly>();
+
+        if (leftControllerInput == null) return;
+
+        leftControllerInput.controller = ballFly;
+        leftControllerInput.restPanel = ballFly.restPanel;
     }
 }

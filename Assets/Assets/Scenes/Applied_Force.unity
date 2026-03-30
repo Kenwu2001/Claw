@@ -1061,8 +1061,9 @@ MonoBehaviour:
   handRoot: {fileID: 0}
   handTag: Hand
   pythonBridge: {fileID: 683067081}
-  bDelta: 100
-  eDelta: 0
+  commandDuringGrow: f
+  commandOnExplode: g
+  growCommandIntervalSeconds: 0.1
   allowRepeatTrigger: 1
   forceApplVelocityBeforeSend: 1
   goInitialBeforeSend: 0
@@ -7078,9 +7079,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelSequenceManager
   levelTargets:
   - {fileID: 2131666085}
+  - {fileID: 1799460707}
   - {fileID: 1921619748}
   - {fileID: 1752988062}
   - {fileID: 1913702882}
+  leftControllerInput: {fileID: 65308229}
   startLevel: 1
   enableKeyboardShortcuts: 1
   restartLevel1Key: 49
@@ -7476,6 +7479,232 @@ Transform:
   - {fileID: 948675254}
   m_Father: {fileID: 743097424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1799460707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799460711}
+  - component: {fileID: 1799460710}
+  - component: {fileID: 1799460709}
+  - component: {fileID: 1799460708}
+  - component: {fileID: 1799460712}
+  - component: {fileID: 1799460713}
+  m_Layer: 0
+  m_Name: Ball2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1799460708
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1799460709
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cb97af67748cf463ea8c6a7d1f34add3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1799460710
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1799460711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.242, y: 0, z: 0}
+  m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1799460712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8506f2a619546f44d9900f4c17195405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallFlyController
+  ball: {fileID: 1799460711}
+  startPoint: {fileID: 385089506}
+  endPoint: {fileID: 1383588648}
+  handRoot: {fileID: 1138024973}
+  trackMovingTarget: 1
+  movingTarget: {fileID: 1383588648}
+  movingTargetName: ballAttachPoint
+  targetReachDistance: 0.015
+  movingTargetSpeedMultiplier: 1.6
+  maxMovingTargetChaseSeconds: 5
+  pythonBridge: {fileID: 683067081}
+  forceApplVelocityModeOnStart: 1
+  sendAngleOnImpact: 1
+  handPoseDelay: 0.05
+  motorTriggerDelay: 0
+  usePreTrigger: 1
+  preTriggerDistance: 0.04
+  impactAngleScale: 1
+  enableManualMotorTestKey: 1
+  useHardcodedImpactAngles: 0
+  hardcodedBDelta: 20
+  hardcodedEDelta: 20
+  goInitialBeforePlay: 0
+  returnRatio: 0.5
+  goInitialDelayAfterHalfReturn: 1
+  fallbackInitialSpeed: 3
+  minTargetSpeed: 0.2
+  maxTargetSpeed: 20
+  stepSmall: 0.5
+  stepLarge: 2.5
+  holdAtStartSeconds: 1
+  holdAtEndSeconds: 1
+  holdAtCollision: 1
+  keepBallOnTargetAfterImpact: 1
+  autoRestartPreviewAfterPlay: 0
+  handPoseBlender: {fileID: 0}
+  useHandPoseBlend: 1
+  playButton: {fileID: 1286455896}
+  lowerButton: {fileID: 1290124723}
+  bestButton: {fileID: 812639577}
+  upperButton: {fileID: 2115360324}
+  applyBestSpeedButton: {fileID: 0}
+  resetSpeedButton: {fileID: 0}
+  nextTrialButton: {fileID: 1429782996}
+  nextGuardLabel: {fileID: 0}
+  nextGuardMessage: "\u8ACB\u5148\u8A2D\u5B9A lower\u3001best\u3001upper \u5F8C\u518D\u7E7C\u7E8C\u3002"
+  trialInfoLabel: {fileID: 0}
+  enableHotkeys: 1
+  hotkeyHelpLabel: {fileID: 0}
+  snapIdleColor: {r: 0.32941177, g: 0.43137255, b: 0.47843137, a: 1}
+  snapDoneColor: {r: 0.18039216, g: 0.49019608, b: 0.19607843, a: 1}
+  snapTextColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonFlashColor: {r: 1, g: 0.8352941, b: 0.30980393, a: 1}
+  buttonFlashDuration: 0.12
+  spreadsheetPath: Assets/Data/force_trials/user_{UserID}_force_trials.csv
+  userId: 1
+  startFromTrialNumber: 1
+  abAdColumn: ab_ad_angle
+  exColumn: ex_angle
+  lowerColumn: lowerbound
+  bestColumn: best
+  upperColumn: upperbound
+  durationColumn: duration
+  trialNoColumn: Trial_no
+  methodColumn: Method
+  objectTypeColumn: ObjectType
+  blockColumn: Block
+  blockSizes: 0c0000000c0000000c000000
+  currentBlock: 0
+  trialInBlock: 0
+  restPanel: {fileID: 0}
+  restMessageLabel: {fileID: 0}
+  restNextButton: {fileID: 0}
+--- !u!54 &1799460713
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799460707}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1801592864
 GameObject:
   m_ObjectHideFlags: 0
@@ -8492,7 +8721,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8ee5f76fdad0c489f9dd023086296b7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8725,6 +8954,7 @@ SceneRoots:
   - {fileID: 621834246}
   - {fileID: 1622079775}
   - {fileID: 2131666086}
+  - {fileID: 1799460711}
   - {fileID: 660292350}
   - {fileID: 636717422}
   - {fileID: 1913702883}

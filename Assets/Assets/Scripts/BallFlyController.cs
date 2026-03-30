@@ -38,7 +38,7 @@ public class BallFlyController : MonoBehaviour
     public float movingTargetSpeedMultiplier = 1.6f;
 
     [Tooltip("追蹤超過此秒數仍未命中，會強制吸附到目標")]
-    public float maxMovingTargetChaseSeconds = 2.0f;
+    public float maxMovingTargetChaseSeconds = 5.0f;
 
     [Header("Python Bridge")]
     public PythonMotorBridge pythonBridge;
@@ -195,40 +195,122 @@ public class BallFlyController : MonoBehaviour
 
     private readonly Dictionary<Button, Coroutine> _buttonFlashCos = new Dictionary<Button, Coroutine>();
 
-    void Start()
+    private bool EnsureCoreReferences()
     {
         ResolveMovingTargetIfNeeded();
 
         if (handPoseBlender == null)
-        {
             handPoseBlender = GetComponent<HandPoseBlender>();
-        }
 
         if (!ball || !startPoint || !endPoint)
         {
             Debug.LogError("[BallFly] 請指定 ball/startPoint/endPoint");
             enabled = false;
-            return;
+            return false;
         }
 
-        ballRb = ball.GetComponent<Rigidbody>();
+        if (ballRb == null)
+            ballRb = ball.GetComponent<Rigidbody>();
+
         if (!ballRb)
         {
             Debug.LogError("[BallFly] ball 物件需要 Rigidbody");
             enabled = false;
-            return;
+            return false;
         }
 
-        ResetBallToStart();
+        return true;
+    }
 
-        if (playButton) playButton.onClick.AddListener(PlayOnce);
-        if (lowerButton) lowerButton.onClick.AddListener(SnapLower);
-        if (bestButton) bestButton.onClick.AddListener(SnapBest);
-        if (upperButton) upperButton.onClick.AddListener(SnapUpper);
-        if (applyBestSpeedButton) applyBestSpeedButton.onClick.AddListener(ApplyRecordedBestSpeed);
-        if (resetSpeedButton) resetSpeedButton.onClick.AddListener(ResetToInitialSpeed);
-        if (nextTrialButton) nextTrialButton.onClick.AddListener(TryNext);
-        if (restNextButton) restNextButton.onClick.AddListener(GoNextBlock);
+    private void Awake()
+    {
+        EnsureCoreReferences();
+    }
+
+    private void OnEnable()
+    {
+        RegisterUiListeners();
+    }
+
+    private void OnDisable()
+    {
+        UnregisterUiListeners();
+    }
+
+    private void OnDestroy()
+    {
+        UnregisterUiListeners();
+    }
+
+    private void RegisterUiListeners()
+    {
+        if (playButton)
+        {
+            playButton.onClick.RemoveListener(PlayOnce);
+            playButton.onClick.AddListener(PlayOnce);
+        }
+
+        if (lowerButton)
+        {
+            lowerButton.onClick.RemoveListener(SnapLower);
+            lowerButton.onClick.AddListener(SnapLower);
+        }
+
+        if (bestButton)
+        {
+            bestButton.onClick.RemoveListener(SnapBest);
+            bestButton.onClick.AddListener(SnapBest);
+        }
+
+        if (upperButton)
+        {
+            upperButton.onClick.RemoveListener(SnapUpper);
+            upperButton.onClick.AddListener(SnapUpper);
+        }
+
+        if (applyBestSpeedButton)
+        {
+            applyBestSpeedButton.onClick.RemoveListener(ApplyRecordedBestSpeed);
+            applyBestSpeedButton.onClick.AddListener(ApplyRecordedBestSpeed);
+        }
+
+        if (resetSpeedButton)
+        {
+            resetSpeedButton.onClick.RemoveListener(ResetToInitialSpeed);
+            resetSpeedButton.onClick.AddListener(ResetToInitialSpeed);
+        }
+
+        if (nextTrialButton)
+        {
+            nextTrialButton.onClick.RemoveListener(TryNext);
+            nextTrialButton.onClick.AddListener(TryNext);
+        }
+
+        if (restNextButton)
+        {
+            restNextButton.onClick.RemoveListener(GoNextBlock);
+            restNextButton.onClick.AddListener(GoNextBlock);
+        }
+    }
+
+    private void UnregisterUiListeners()
+    {
+        if (playButton) playButton.onClick.RemoveListener(PlayOnce);
+        if (lowerButton) lowerButton.onClick.RemoveListener(SnapLower);
+        if (bestButton) bestButton.onClick.RemoveListener(SnapBest);
+        if (upperButton) upperButton.onClick.RemoveListener(SnapUpper);
+        if (applyBestSpeedButton) applyBestSpeedButton.onClick.RemoveListener(ApplyRecordedBestSpeed);
+        if (resetSpeedButton) resetSpeedButton.onClick.RemoveListener(ResetToInitialSpeed);
+        if (nextTrialButton) nextTrialButton.onClick.RemoveListener(TryNext);
+        if (restNextButton) restNextButton.onClick.RemoveListener(GoNextBlock);
+    }
+
+    void Start()
+    {
+        if (!EnsureCoreReferences())
+            return;
+
+        ResetBallToStart();
 
         InitSnapButton(lowerButton, "Lowerbound", snapIdleColor, snapTextColor);
         InitSnapButton(bestButton, "Best", snapIdleColor, snapTextColor);
@@ -286,6 +368,19 @@ public class BallFlyController : MonoBehaviour
         ResolveMovingTargetIfNeeded();
         target = movingTarget != null ? movingTarget : (handRoot != null ? handRoot : endPoint);
         return target != null;
+    }
+
+    private float GetChaseTimeoutSeconds(float speed, Transform target)
+    {
+        float configuredTimeout = Mathf.Max(0.1f, maxMovingTargetChaseSeconds);
+        if (target == null || ball == null)
+            return configuredTimeout;
+
+        float effectiveSpeed = Mathf.Max(0.01f, speed * Mathf.Max(1f, movingTargetSpeedMultiplier));
+        float distance = Vector3.Distance(ball.position, target.position);
+        float distanceBasedTimeout = (distance / effectiveSpeed) + 0.5f;
+
+        return Mathf.Max(configuredTimeout, distanceBasedTimeout);
     }
 
     private void AttachBallToTarget(Transform target)
@@ -719,6 +814,10 @@ public class BallFlyController : MonoBehaviour
         float t = 0f;
         float reachSqr = Mathf.Max(0.0001f, targetReachDistance) * Mathf.Max(0.0001f, targetReachDistance);
         float chaseElapsed = 0f;
+        float chaseTimeoutSeconds = Mathf.Max(0.1f, maxMovingTargetChaseSeconds);
+
+        if (trackMovingTarget && TryGetActiveTarget(out Transform initialTarget))
+            chaseTimeoutSeconds = GetChaseTimeoutSeconds(oneShotSpeed, initialTarget);
 
         while (t < 1f && !isStuckToHand)
         {
@@ -737,9 +836,9 @@ public class BallFlyController : MonoBehaviour
                     break;
                 }
 
-                if (chaseElapsed >= Mathf.Max(0.1f, maxMovingTargetChaseSeconds))
+                if (chaseElapsed >= chaseTimeoutSeconds)
                 {
-                    Debug.LogWarning("[BallFly] Moving target chase timeout, force attach to target.");
+                    Debug.LogWarning($"[BallFly] Moving target chase timeout after {chaseElapsed:0.###} sec, force attach to target.");
                     AttachBallToTarget(target);
                     TriggerImpactResponse(target);
                     break;
@@ -915,6 +1014,8 @@ public class BallFlyController : MonoBehaviour
 
     private void ResetBallToStart()
     {
+        if (!EnsureCoreReferences()) return;
+
         isStuckToHand = false;
         _impactAlreadyTriggered = false;
 
@@ -928,6 +1029,8 @@ public class BallFlyController : MonoBehaviour
 
     public void RestartFromLevelStart()
     {
+        if (!EnsureCoreReferences()) return;
+
         StopPreviewLoop();
 
         isAnimating = false;
