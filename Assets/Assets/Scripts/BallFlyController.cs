@@ -82,7 +82,7 @@ public class BallFlyController : MonoBehaviour
 
     [Header("Speed (units/second)")]
     public float fallbackInitialSpeed = 3f;
-    public float minTargetSpeed = 0.2f;
+    public float minTargetSpeed = 1.0f;
     public float maxTargetSpeed = 20f;
     public float stepSmall = 0.5f;
     public float stepLarge = 2.5f;
@@ -99,6 +99,16 @@ public class BallFlyController : MonoBehaviour
 
     [Tooltip("每次 Play 完成後是否自動進入預覽循環")]
     public bool autoRestartPreviewAfterPlay = false;
+
+    [Header("Impact Scale")]
+    [Tooltip("撞到手後是否做球體縮放")]
+    public bool scaleBallOnImpact = false;
+
+    [Tooltip("撞到手後的目標倍率，例如 1.7 = 放大到 1.7 倍，0.4 = 縮到 0.4 倍")]
+    public float impactScaleMultiplier = 1f;
+
+    [Tooltip("幾秒內完成縮放")]
+    public float impactScaleDuration = 5f;
 
     [Header("Hand Pose Blend")]
     public HandPoseBlender handPoseBlender;
@@ -188,12 +198,14 @@ public class BallFlyController : MonoBehaviour
     private float? _snapUpper = null;
 
     private Coroutine _previewLoopCo;
+    private Coroutine _impactScaleCo;
     private float trialStartTime;
 
     private int _preparedImpactB = 0;
     private int _preparedImpactE = 0;
 
     private readonly Dictionary<Button, Coroutine> _buttonFlashCos = new Dictionary<Button, Coroutine>();
+    private Vector3 _initialBallLocalScale;
 
     private bool EnsureCoreReferences()
     {
@@ -211,6 +223,8 @@ public class BallFlyController : MonoBehaviour
 
         if (ballRb == null)
             ballRb = ball.GetComponent<Rigidbody>();
+
+        _initialBallLocalScale = ball.localScale;
 
         if (!ballRb)
         {
@@ -396,6 +410,47 @@ public class BallFlyController : MonoBehaviour
         ball.SetParent(target);
     }
 
+    private void StartImpactScaleAnimation()
+    {
+        if (!scaleBallOnImpact || ball == null) return;
+
+        if (_impactScaleCo != null)
+            StopCoroutine(_impactScaleCo);
+
+        _impactScaleCo = StartCoroutine(AnimateImpactScaleCo());
+    }
+
+    private IEnumerator AnimateImpactScaleCo()
+    {
+        Vector3 startScale = ball.localScale;
+        Vector3 targetScale = _initialBallLocalScale * impactScaleMultiplier;
+        float duration = Mathf.Max(0.01f, impactScaleDuration);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            ball.localScale = Vector3.Lerp(startScale, targetScale, Mathf.Clamp01(elapsed / duration));
+            yield return null;
+        }
+
+        ball.localScale = targetScale;
+        _impactScaleCo = null;
+    }
+
+    private void ResetBallScale()
+    {
+        if (ball == null) return;
+
+        if (_impactScaleCo != null)
+        {
+            StopCoroutine(_impactScaleCo);
+            _impactScaleCo = null;
+        }
+
+        ball.localScale = _initialBallLocalScale;
+    }
+
     private async Task ConfigurePythonOnStartAsync()
     {
         if (pythonBridge == null) return;
@@ -554,6 +609,8 @@ public class BallFlyController : MonoBehaviour
         _impactAlreadyTriggered = true;
 
         Debug.Log("[BallFly] TriggerImpactResponse() called");
+        StartImpactScaleAnimation();
+
         if (useHandPoseBlend && handPoseBlender != null)
             StartCoroutine(DelayedHandPoseCo());
 
@@ -772,10 +829,7 @@ public class BallFlyController : MonoBehaviour
                 Debug.Log("[BallFly] Ensure VAPPL before play = " + vapplResult);
                 if (vapplResult != "K")
                 {
-                    Debug.LogError("[BallFly] VAPPL failed before play: " + vapplResult);
-                    SetAllControls(true);
-                    _isPreparingPlay = false;
-                    return;
+                    Debug.LogWarning("[BallFly] VAPPL failed before play, continue ball motion anyway: " + vapplResult);
                 }
             }
 
@@ -1018,6 +1072,7 @@ public class BallFlyController : MonoBehaviour
 
         isStuckToHand = false;
         _impactAlreadyTriggered = false;
+        ResetBallScale();
 
         ball.SetParent(null);
         ballRb.isKinematic = false;

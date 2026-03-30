@@ -135,6 +135,7 @@ def main():
             try:
                 from unity_demo_controller import UnityDemoController
                 ctrl = UnityDemoController(state)
+                ctrl.print_help()
             except Exception as e:
                 traceback.print_exc()
                 print(f"E init_failed:{e}", flush=True)

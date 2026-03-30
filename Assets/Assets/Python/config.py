@@ -21,7 +21,7 @@ HX_TIMEOUT = 0.05
 # =====================
 # Dynamixel
 # =====================
-DXL_BAUD     = 57600
+DXL_BAUD     = 1000000
 DXL_DEVICE   = "COM5"
 DXL_PROTOCOL = 2.0
 
@@ -43,8 +43,8 @@ abAdScale = 1.5689
 exScale = 9.1618
 
 # ENABLED_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-# ENABLED_IDS = [1, 2, 3, 4, 5]
-ENABLED_IDS =[1, 6]
+ENABLED_IDS = [1, 6]
+# ENABLED_IDS =[6, 7, 8, 9]
 
 
 # Motor -> HX711 index mapping (0/1/2) from the "f1,f2,f3" line
@@ -69,11 +69,23 @@ INTI_DEG_SIZE = {
     3: 20*exScale,
     4: 20*exScale,
     5: 20*exScale,
-    6: -20*abAdScale,
-    7: -20*abAdScale,
-    8: -20*abAdScale,
-    9: -20*abAdScale
+    6: -20,
+    7: -20,
+    8: -20,
+    9: -20
 }
+
+# INTI_DEG_SIZE = {
+#     1: 0*exScale,
+#     2: 0*exScale,
+#     3: 0*exScale,
+#     4: 0*exScale,
+#     5: 0*exScale,
+#     6: -25,
+#     7: -25,
+#     8: -25,
+#     9: -25
+# }
 
 INTI_DEG_STIFF = {
     1: 5*exScale,
@@ -81,11 +93,35 @@ INTI_DEG_STIFF = {
     3: 20*exScale,
     4: 20*exScale,
     5: 20*exScale,
-    6: -20*abAdScale,
-    7: -20*abAdScale,
-    8: -20*abAdScale,
-    9: -20*abAdScale
+    6: -20,
+    7: -20,
+    8: -20,
+    9: -20
 }
+
+# INTI_DEG_STIFF = {
+#     1: 5*exScale,
+#     2: 20*exScale,
+#     3: 20*exScale,
+#     4: 20*exScale,
+#     5: 20*exScale,
+#     6: -20*abAdScale,
+#     7: -20*abAdScale,
+#     8: -20*abAdScale,
+#     9: -20*abAdScale
+# }
+
+# INTI_DEG_STIFF = {
+#     1: 0,
+#     2: 0,
+#     3: 0,
+#     4: 0,
+#     5: 0,
+#     6: -20*abAdScale,
+#     7: -20*abAdScale,
+#     8: -20*abAdScale,
+#     9: -20*abAdScale
+# }
 
 INTI_DEG_FORCE = {
     1: 5*exScale,
@@ -93,28 +129,66 @@ INTI_DEG_FORCE = {
     3: 5*exScale,
     4: 5*exScale,
     5: 5*exScale,
-    6: -10*abAdScale,
-    7: -10*abAdScale,
-    8: -10*abAdScale,
-    9: -10*abAdScale
+    6: -10,
+    7: -10,
+    8: -10,
+    9: -10
 }
 
 FIN_DEG_FORCE = {
-    1: 25*exScale,
-    2: 25*exScale,
-    3: 25*exScale,
-    4: 25*exScale,
-    5: 25*exScale,
-    6: -20*abAdScale,
-    7: -20*abAdScale,
-    8: -20*abAdScale,
-    9: -20*abAdScale
+    1: 10*exScale,
+    2: 10*exScale,
+    3: 10*exScale,
+    4: 10*exScale,
+    5: 10*exScale,
+    6: -20,
+    7: -20,
+    8: -20,
+    9: -20
 }
 
-SIZE_VB = 45
+SIZE_VB = 40
 SIZE_VE = 100
 APPL_VB = 500
 APPL_VE = 1600
+
+# =====================
+# Unity demo payload presets
+# =====================
+# Payload tokens are executed from left to right.
+# Supported tokens:
+#   b<deg>   move B group by relative degrees (trial-space command)
+#   e<deg>   move E group by relative degrees (trial-space command)
+#   s<ID><deg> move one motor by relative degrees, e.g. s6+20
+#   sv<ID>=<vel> set one motor profile velocity, e.g. sv6=80
+#   v<vel>   set profile velocity for both B and E groups
+#   vb<vel>  set profile velocity for B group only
+#   ve<vel>  set profile velocity for E group only
+#   t<sec>   wait/sleep for seconds
+#
+# Use commas to separate sequential steps.
+# Within one step, "b...e..." means B and E move together.
+#
+# Example:
+#   "b20e40,v80,t5,b-20"
+# means:
+#   1) move B group by +20 and E group by +40 together
+#   2) set both groups' profile velocity to 80
+#   3) wait 5 seconds
+#   4) move B group by -20
+#
+# In Unity demo mode, send a preset with:
+#   PL:<preset_name>
+UNITY_DEMO_PAYLOAD_PRESETS = {
+    "basbig": "vb200, ve150, b+40e+40, t0.2, b-15e-15, t1, v20, b+30e+30, t0.2",
+    "vollsmall": "vb200, ve100, b+25e+25, t0.2, b-5e-5, t1, v20, b-20e-20",
+    "move": "v40,s6-60s2+40,t1,s6+60s7-60,t1,s7+60s8-60,t1,s8+60s9-60,t1,s9+60",
+    "backmove": "v40,s9-60,t1,s9+60s8-60,t1,s8+60s7-60,t1,s7+60s6-60,t1,s6+60",
+    "breath": "v30,b10,t0.4,b-10,t0.4",
+    "heart": "v100,b10,t0.1,v50,b-10,t0.5",
+    "bomb": "v10,b20,t1,v100,b10,t0.1, b-30",
+    "roll":"v80, s6-20s8-15, t0.1, s6+15s7-20s8+15s9-10, t0.1, s6-20s7+20s9-10, t0.1, s7-20s8-15, t0.1, s6+15s7+20s8+15s9+10",
+}
 
 # =====================
 # Admittance/match control gains
@@ -138,9 +212,9 @@ HX_ZERO_TIMEOUT_S = 1.0       # 最多等多久收齊樣本
 # Dynamixel: grouping for keyboard control (extended position mode)
 # =====================
 # You can freely edit these lists to match your wiring / test setup.
-# GROUP_E_IDS = [1, 2, 3, 4, 5]
-GROUP_E_IDS = [1]
-GROUP_B_IDS = [6]
+GROUP_E_IDS = [1, 2, 3, 4, 5]
+# GROUP_E_IDS = []
+GROUP_B_IDS = [6, 7, 8, 9]
 # GROUP_B_IDS = []
 
 # Extended Position Mode (Operating Mode = 4)
@@ -166,14 +240,40 @@ STIFFNESS_PID_VEL_MAX_MPS_BY_GROUP = {
 }
 STIFFNESS_E_GROUP_TARGET_FLOOR_VEL_LSB = 50
 
+# Direction-asymmetric PID gain scaling.
+# push: Ft > Fm, allow the controller to be more aggressive.
+# release: Ft < Fm, keep it more conservative.
+STIFFNESS_PID_PUSH_GAIN_SCALE_BY_GROUP = {
+    "b": 1.35,
+    "e": 1.20,
+}
+
+STIFFNESS_PID_RELEASE_GAIN_SCALE_BY_GROUP = {
+    "b": 1.00,
+    "e": 1.00,
+}
+
 # 0: use all motors in STIFFNESS_MODE_IDS
 # non-zero: stiffness mode only controls this motor, and keeps the others torque-off
 STIFFNESS_SINGLE_MOTOR_ID = 0
 
-STIFFNESS_FORCE_DEADBAND_N = 0.3
-STIFFNESS_FORCE_LPF_ALPHA = 0.2
-STIFFNESS_E_GROUP_MIN_FM_FOR_TARGET_FLOOR_N = 0.5
-STIFFNESS_E_GROUP_TARGET_FLOOR_N = 0.3
+# Unity telemetry source motor.
+# 0: use the default multi-motor aggregation logic
+# non-zero: send force/displacement from this motor only
+UNITY_TELEMETRY_MOTOR_ID = 0
+
+STIFFNESS_FORCE_DEADBAND_N = 0.03
+STIFFNESS_FORCE_LPF_ALPHA = 0.7
+STIFFNESS_E_GROUP_MIN_FM_FOR_TARGET_FLOOR_N = 0.1
+STIFFNESS_E_GROUP_TARGET_FLOOR_N = 0.15
+STIFFNESS_F_TARGET_MIN_N_BY_GROUP = {
+    "b": 0.2,
+    "e": 0.2,
+}
+STIFFNESS_E_GROUP_REEL_IN_ENABLE = True
+STIFFNESS_E_GROUP_REEL_IN_TRIGGER_FM_N = 0.1
+STIFFNESS_E_GROUP_REEL_IN_EXIT_FM_N = 0.2
+STIFFNESS_E_GROUP_REEL_IN_VEL_LSB = 40
 
 # Geometry
 STIFFNESS_SPOOL_RADIUS_M = 0.018
@@ -231,7 +331,7 @@ CONTROL_SIGN_BY_ID = {
 STIFFNESS_PRESETS = {
     # ----- B group -----
     "bs": {
-        "k": 220.0,
+        "k": 150.0,
         "b": 25.0,
         "kp": 0.0095,
         "kd": 0.00015,
@@ -243,7 +343,7 @@ STIFFNESS_PRESETS = {
         # "kd": 0.0002,
     },
     "bm": {
-        "k": 700.0,
+        "k": 900.0,
         "b": 40.0,
         "kp": 0.0075,
         "kd": 0.00025,
@@ -255,10 +355,10 @@ STIFFNESS_PRESETS = {
         # "kd": 0.0003,
     },
     "bh": {
-        "k": 1500.0,
+        "k": 1800.0,
         "b": 60.0,
-        "kp": 0.0110,
-        "kd": 0.00040,
+        "kp": 0.0025,
+        "kd": 0.0005,
         "profile_v": 20,
         "profile_accel": 6,
         # "k": 1100.0,
@@ -269,17 +369,17 @@ STIFFNESS_PRESETS = {
 
     # ----- E group -----
     "es": {
-        "k": 180.0,
+        "k": 220.0,
         "b": 35.0,
-        "kp": 0.0060,
-        "kd": 0.00020,
+        "kp": 0.02,
+        "kd": 0.0002,
         "profile_v": 90,
         "profile_accel": 8,
         # "kp": 0.010,
         # "kd": 0.0003,
     },
     "em": {
-        "k":500.0,
+        "k":400.0,
         "b": 55.0,
         "kp": 0.005,
         "kd": 0.00035,
@@ -289,9 +389,9 @@ STIFFNESS_PRESETS = {
         # "kd": 0.0005,
     },
     "eh": {
-        "k": 1000.0,
+        "k": 800.0,
         "b": 80.0,
-        "kp": 0.0150,
+        "kp": 0.003,
         "kd": 0.00055,
         "profile_v": 60,
         "profile_accel": 12,

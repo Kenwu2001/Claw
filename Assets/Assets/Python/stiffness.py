@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
@@ -6,6 +6,7 @@ import os
 import json
 import time
 import math
+import re
 import threading
 from collections import deque
 
@@ -24,14 +25,20 @@ from config import (
     DXL_DEVICE,
     DXL_PROTOCOL,
     STIFFNESS_MODE_IDS,
+    UNITY_TELEMETRY_MOTOR_ID,
     DXL_HX_INDEX,
     GROUP_B_IDS,
     GROUP_E_IDS,
     INTI_DEG_STIFF,
     STIFFNESS_FORCE_DEADBAND_N,
     STIFFNESS_FORCE_LPF_ALPHA,
+    STIFFNESS_F_TARGET_MIN_N_BY_GROUP,
     STIFFNESS_E_GROUP_MIN_FM_FOR_TARGET_FLOOR_N,
     STIFFNESS_E_GROUP_TARGET_FLOOR_N,
+    STIFFNESS_E_GROUP_REEL_IN_ENABLE,
+    STIFFNESS_E_GROUP_REEL_IN_TRIGGER_FM_N,
+    STIFFNESS_E_GROUP_REEL_IN_EXIT_FM_N,
+    STIFFNESS_E_GROUP_REEL_IN_VEL_LSB,
     STIFFNESS_SPOOL_RADIUS_M,
     STIFFNESS_SPOOL_RADIUS_M_BY_GROUP,
     STIFFNESS_CURRENT_LIMIT_MA,
@@ -71,7 +78,8 @@ from config import (
     STIFFNESS_PID_OUTPUT_MODE,
     STIFFNESS_PID_VEL_LPF_ALPHA,
     STIFFNESS_PID_VEL_MAX_MPS_BY_GROUP,
-    STIFFNESS_E_GROUP_TARGET_FLOOR_VEL_LSB,
+    STIFFNESS_PID_PUSH_GAIN_SCALE_BY_GROUP,
+    STIFFNESS_PID_RELEASE_GAIN_SCALE_BY_GROUP,
 )
 
 LIMIT_JSON_PATH = os.path.join(os.path.dirname(__file__), "motor_upper_limits.json")
@@ -140,13 +148,13 @@ GROUP_E_BOUND_TICK = int(round(GROUP_E_BOUND_DEG * TICKS_PER_DEG))
 # signal debug / trend-state detection
 ENABLE_SIGNAL_DEBUG_PRINT = False
 DEBUG_HX_ID = DXL_IDS[2] if DXL_IDS else 1
-DEBUG_PRINT_INTERVAL_S = 0.05
+DEBUG_PRINT_INTERVAL_S = 0.0
 
-ENABLE_DEBUG_PLOT = True
+ENABLE_DEBUG_PLOT = False
 PLOT_HISTORY_SECONDS = 20
 PLOT_UPDATE_INTERVAL_S = 0.05
 
-ENABLE_UNITY_TELEMETRY = False
+ENABLE_UNITY_TELEMETRY = True
 
 RISE_DIFF_THRESHOLD_N = 0.025
 FALL_DIFF_THRESHOLD_N = 0.015
@@ -187,6 +195,9 @@ active_simple_release_max_by_id = {}
 active_simple_err_full_scale_by_id = {}
 active_profile_v_by_id = {}
 active_profile_accel_by_id = {}
+profile_v_override_by_group = {}
+manual_position_return_pos = {}
+manual_position_return_profile_v_by_id = {}
 
 # 三種基準
 boundary_pos = {}
@@ -255,6 +266,7 @@ pkt = None
 port = None
 group_sync_read_pos = None
 group_sync_write_goal = None
+current_operating_mode = EXTENDED_POSITION_MODE
 
 
 # -----------------------------
@@ -270,6 +282,37 @@ def debug(msg):
 
 def clamp(x, lo, hi):
     return lo if x < lo else hi if x > hi else x
+
+
+def clear_active_trial_state():
+    global render_enabled, current_trial, latest_force_for_unity, latest_disp_for_unity, trial_zero_ready
+
+    with lock:
+        render_enabled = False
+        current_trial = None
+
+        active_ids.clear()
+        active_k_by_id.clear()
+        active_b_by_id.clear()
+        active_kp_by_id.clear()
+        active_kd_by_id.clear()
+        active_controller_by_id.clear()
+        active_adm_m_by_id.clear()
+        active_adm_b_by_id.clear()
+        active_adm_k_by_id.clear()
+        active_adm_vmax_by_id.clear()
+        active_adm_xmax_by_id.clear()
+        active_simple_push_gain_by_id.clear()
+        active_simple_release_gain_by_id.clear()
+        active_simple_push_max_by_id.clear()
+        active_simple_release_max_by_id.clear()
+        active_simple_err_full_scale_by_id.clear()
+        active_profile_v_by_id.clear()
+        active_profile_accel_by_id.clear()
+
+        latest_force_for_unity = 0.0
+        latest_disp_for_unity = 0.0
+        trial_zero_ready = False
 
 # -------- HX711 零点校正 --------
 def zero_hx_sensors_for_trial(ids):
@@ -394,6 +437,21 @@ def get_m_to_tick_for_id(dxl_id):
 def get_pid_vel_max_mps_for_id(dxl_id):
     g = get_group_name_for_id(dxl_id)
     return float(STIFFNESS_PID_VEL_MAX_MPS_BY_GROUP.get(g, 0.05))
+
+
+def get_pid_push_gain_scale_for_id(dxl_id):
+    g = get_group_name_for_id(dxl_id)
+    return float(STIFFNESS_PID_PUSH_GAIN_SCALE_BY_GROUP.get(g, 1.0))
+
+
+def get_pid_release_gain_scale_for_id(dxl_id):
+    g = get_group_name_for_id(dxl_id)
+    return float(STIFFNESS_PID_RELEASE_GAIN_SCALE_BY_GROUP.get(g, 1.0))
+
+
+def get_f_target_min_n_for_id(dxl_id):
+    g = get_group_name_for_id(dxl_id)
+    return float(STIFFNESS_F_TARGET_MIN_N_BY_GROUP.get(g, 0.5))
 
 
 def linear_mps_to_velocity_lsb(dxl_id, v_mps):
@@ -576,7 +634,10 @@ def expand_command_to_motor_params(cmd):
             simple_push_max_by_id[dxl_id] = float(preset.get("simple_push_max", 0.003))
             simple_release_max_by_id[dxl_id] = float(preset.get("simple_release_max", 0.006))
             simple_err_full_scale_by_id[dxl_id] = float(preset.get("simple_err_full_scale", 3.0))
-            profile_v_by_id[dxl_id] = int(preset["profile_v"])
+            profile_v_default = int(preset["profile_v"])
+            profile_v_by_id[dxl_id] = int(
+                profile_v_override_by_group.get(group_name, profile_v_default)
+            )
             profile_accel_by_id[dxl_id] = int(preset["profile_accel"])
 
     if "b" in spec:
@@ -617,8 +678,11 @@ def compute_force_for_unity():
             latest_force_for_unity = 0.0
             return
 
-        vals = [F_raw[i] for i in active_ids if i in F_raw]
-        latest_force_for_unity = (sum(vals) / len(vals)) if vals else 0.0
+        if UNITY_TELEMETRY_MOTOR_ID:
+            vals = [F_raw[UNITY_TELEMETRY_MOTOR_ID]] if UNITY_TELEMETRY_MOTOR_ID in active_ids and UNITY_TELEMETRY_MOTOR_ID in F_raw else []
+        else:
+            vals = [F_raw[i] for i in active_ids if i in F_raw]
+        latest_force_for_unity = max(vals, key=lambda v: abs(v)) if vals else 0.0
 
 
 def compute_disp_for_unity():
@@ -630,18 +694,22 @@ def compute_disp_for_unity():
             return
 
         active_set = set(active_ids)
-        b_set = set(GROUP_B_IDS)
-        e_set = set(GROUP_E_IDS)
 
-        if (active_set & b_set) and not (active_set & e_set):
-            ids_to_avg = list(active_set & b_set)
-        elif (active_set & e_set) and not (active_set & b_set):
-            ids_to_avg = list(active_set & e_set)
-        elif (active_set & b_set) and (active_set & e_set):
-            ids_to_avg = list(active_set & e_set)
+        if UNITY_TELEMETRY_MOTOR_ID:
+            ids_to_avg = [UNITY_TELEMETRY_MOTOR_ID] if UNITY_TELEMETRY_MOTOR_ID in active_set else []
         else:
-            latest_disp_for_unity = 0.0
-            return
+            b_set = set(GROUP_B_IDS)
+            e_set = set(GROUP_E_IDS)
+
+            if (active_set & b_set) and not (active_set & e_set):
+                ids_to_avg = list(active_set & b_set)
+            elif (active_set & e_set) and not (active_set & b_set):
+                ids_to_avg = list(active_set & e_set)
+            elif (active_set & b_set) and (active_set & e_set):
+                ids_to_avg = list(active_set & e_set)
+            else:
+                latest_disp_for_unity = 0.0
+                return
 
     vals = []
     for i in ids_to_avg:
@@ -649,13 +717,13 @@ def compute_disp_for_unity():
             pos_now = read_present_position(i)
             pos_zero = trial_zero_pos.get(i, pos_now)
             delta_tick = pos_now - pos_zero
-            delta_m = delta_tick * TICK_TO_M
+            delta_m = delta_tick * get_tick_to_m_for_id(i)
             vals.append(delta_m)
         except Exception:
             continue
 
     with lock:
-        latest_disp_for_unity = (sum(vals) / len(vals)) if vals else 0.0
+        latest_disp_for_unity = max(vals, key=lambda v: abs(v)) if vals else 0.0
 
 
 # -----------------------------
@@ -823,6 +891,7 @@ def debug_error_state_status(
     t_now,
     f_target,
     f_measured,
+    mea_ok,
     force_error,
     dmag,
     current_state,
@@ -849,25 +918,32 @@ def debug_error_state_status(
     if match_exit_th_n is None:
         match_exit_th_n = get_match_exit_threshold_n_for_id(dxl_id, f_target)
 
+    raw_f = float(F_raw.get(dxl_id, 0.0))
+    offset_f = float(hx_zero_offset_by_id.get(dxl_id, 0.0))
+    after_offset_f = raw_f - offset_f
+    filt_f = float(F_filt.get(dxl_id, 0.0))
+
     vel_part = ""
     if vel_cmd_mps is not None:
         vel_part = f" | vcmd={vel_cmd_mps:+.5f} m/s"
         if vel_lsb is not None:
             vel_part += f" | vlsb={int(vel_lsb)}"
 
-    debug(
-        f"[ERR{dxl_id}] "
-        f"preset={error_state_runtime_preset} | "
-        f"Fm={f_measured:+.3f} | Ft={f_target:+.3f} | Ferr={force_error:+.3f} | "
-        f"|Ferr|={err_mag:.3f} | d|Ferr|={dmag:+.4f} | "
-        f"state={current_state} | cand={candidate_state}({candidate_count}) | "
-        f"mode={f_target_mode} | "
-        f"{vel_part}"
-        f" | "
-        f"match_in<={match_enter_th_n:.3f} enter_dmag<={enter_dmag_max_n:.4f} | "
-        f"match_out>={match_exit_th_n:.3f} exit_dmag>={exit_dmag_min_n:.4f} | "
-        f"confirm_in={error_state_match_enter_confirm} confirm_out={error_state_match_exit_confirm}"
-    )
+    # debug(
+    #     f"[ERR{dxl_id}] "
+    #     f"preset={error_state_runtime_preset} | "
+    #     f"raw={raw_f:+.3f} | offset={offset_f:+.3f} | after_offset={after_offset_f:+.3f} | "
+    #     f"Ffilt={filt_f:+.3f} | mea_ok={int(bool(mea_ok))} | "
+    #     f"Fm={f_measured:+.3f} | Ft={f_target:+.3f} | Ferr={force_error:+.3f} | "
+    #     f"|Ferr|={err_mag:.3f} | d|Ferr|={dmag:+.4f} | "
+    #     f"state={current_stat  e} | cand={candidate_state}({candidate_count}) | "
+    #     f"mode={f_target_mode} | "
+    #     f"{vel_part}"
+    #     f" | "
+    #     f"match_in<={match_enter_th_n:.3f} enter_dmag<={enter_dmag_max_n:.4f} | "
+    #     f"match_out>={match_exit_th_n:.3f} exit_dmag>={exit_dmag_min_n:.4f} | "
+    #     f"confirm_in={error_state_match_enter_confirm} confirm_out={error_state_match_exit_confirm}"
+    # )
     last_error_state_debug_print_t = t_now
 
 
@@ -1193,17 +1269,40 @@ def set_motor_profile(dxl_id, profile_v=None, profile_accel=None):
                 )
 
 
-def init_dynamixel():
-    operating_mode = VELOCITY_MODE if str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity" else EXTENDED_POSITION_MODE
-    for i in DXL_IDS:
+def get_stiffness_operating_mode():
+    return VELOCITY_MODE if str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity" else EXTENDED_POSITION_MODE
+
+
+def get_operating_mode_name(mode):
+    if int(mode) == VELOCITY_MODE:
+        return "velocity"
+    return "position"
+
+
+def set_operating_mode_many(dxl_ids, operating_mode, torque_on_after=True):
+    global current_operating_mode
+
+    for dxl_id in dxl_ids:
+        if dxl_id not in DXL_IDS:
+            continue
+
         with dxl_lock:
-            pkt.write1ByteTxRx(port, i, ADDR_TORQUE_ENABLE, 0)
-            pkt.write1ByteTxRx(port, i, ADDR_OPERATING_MODE, operating_mode)
-            pkt.write2ByteTxRx(port, i, ADDR_CURRENT_LIMIT, int(CURRENT_LIMIT_MA))
-            pkt.write4ByteTxRx(port, i, ADDR_PROFILE_ACCEL, 20)
-            pkt.write4ByteTxRx(port, i, ADDR_PROFILE_VELOCITY, 80)
-            pkt.write4ByteTxRx(port, i, ADDR_GOAL_VELOCITY, 0)
-            pkt.write1ByteTxRx(port, i, ADDR_TORQUE_ENABLE, 1)
+            pkt.write1ByteTxRx(port, dxl_id, ADDR_TORQUE_ENABLE, 0)
+            pkt.write1ByteTxRx(port, dxl_id, ADDR_OPERATING_MODE, int(operating_mode))
+            pkt.write2ByteTxRx(port, dxl_id, ADDR_CURRENT_LIMIT, int(CURRENT_LIMIT_MA))
+            pkt.write4ByteTxRx(port, dxl_id, ADDR_PROFILE_ACCEL, 20)
+            pkt.write4ByteTxRx(port, dxl_id, ADDR_PROFILE_VELOCITY, 80)
+            pkt.write4ByteTxRx(port, dxl_id, ADDR_GOAL_VELOCITY, 0)
+            if torque_on_after:
+                pkt.write1ByteTxRx(port, dxl_id, ADDR_TORQUE_ENABLE, 1)
+
+    current_operating_mode = int(operating_mode)
+
+
+def init_dynamixel():
+    # Keep startup/N initialization in position mode. Trial start will switch
+    # to the configured stiffness output mode right before rendering.
+    set_operating_mode_many(DXL_IDS, EXTENDED_POSITION_MODE, torque_on_after=True)
 
 def set_torque_enable(dxl_id, enable):
     with dxl_lock:
@@ -1320,55 +1419,11 @@ def move_all_to_positions(pos_map, settle=0.7, profile_v_map=None, profile_accel
 
     time.sleep(settle)
 
-
-def move_all_to_positions_velocity(
-    pos_map,
-    settle=0.3,
-    timeout_s=4.0,
-    tol_tick=12,
-    min_vel_lsb=35,
-    max_vel_lsb=120,
-):
-    if not pos_map:
-        return
-
-    ids = list(pos_map.keys())
-    deadline = time.time() + float(timeout_s)
-
-    try:
-        while time.time() < deadline:
-            pos_now_by_id = sync_read_present_positions(ids)
-            all_reached = True
-
-            for dxl_id, goal_tick in pos_map.items():
-                pos_now = pos_now_by_id.get(dxl_id)
-                if pos_now is None:
-                    continue
-
-                err_tick = int(goal_tick) - int(pos_now)
-                if abs(err_tick) <= int(tol_tick):
-                    vel_lsb = 0
-                else:
-                    all_reached = False
-                    vel_mag = int(clamp(abs(err_tick) // 6, int(min_vel_lsb), int(max_vel_lsb)))
-                    vel_lsb = vel_mag if err_tick > 0 else -vel_mag
-
-                write_goal_velocity(dxl_id, vel_lsb)
-
-            if all_reached:
-                break
-
-            time.sleep(max(DT_LOOP, 0.02))
-    finally:
-        stop_velocity_many(ids)
-        time.sleep(settle)
-
 # -----------------------------
 def render_loop():
     global running
 
     t_prev = time.time()
-    use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
 
     while running:
         t_now = time.time()
@@ -1378,6 +1433,7 @@ def render_loop():
             continue
 
         t_prev = t_now
+        use_velocity_output = current_operating_mode == VELOCITY_MODE
 
         with lock:
             do_render = render_enabled
@@ -1385,6 +1441,7 @@ def render_loop():
             trial = current_trial
             mea_ok = (t_now - t_mea) < 0.5
             boundary_local = dict(boundary_pos)
+            baseline_local = dict(baseline_pos)
             zero_local = dict(trial_zero_pos)
 
             k_local = dict(active_k_by_id)
@@ -1433,19 +1490,46 @@ def render_loop():
             prev_error_state = error_state_by_id[i]
             prev_frozen_target = F_target_by_id[i]
             prev_frozen_active = f_target_frozen_by_id[i]
-            using_e_target_floor = False
+            baseline_tick = int(baseline_local.get(i, boundary_local[i]))
+            boundary_tick = int(boundary_local[i])
 
-            F_target_live = (-sgn) * k * x_now_m
+            f_target_min_n = get_f_target_min_n_for_id(i)
+            F_target_live = max(f_target_min_n, (-sgn) * k * x_now_m)
+            x_l_m = x_sign * (baseline_tick - zero_local[i]) * get_tick_to_m_for_id(i)
+            F_target_l_bound = max(f_target_min_n, (-sgn) * k * x_l_m)
+            boundary_is_lower = boundary_tick <= baseline_tick
+            goal_min, goal_max = get_goal_bounds(boundary_tick, i)
+
+            exceeded_b_side = (
+                pos_now_tick < goal_min if boundary_is_lower else pos_now_tick > goal_max
+            )
+            exceeded_l_side = (
+                pos_now_tick > goal_max if boundary_is_lower else pos_now_tick < goal_min
+            )
+
             use_frozen_target = (
                 controller != "simple_admittance"
                 and prev_error_state == "MATCH"
                 and prev_frozen_active
             )
             F_target = prev_frozen_target if use_frozen_target else F_target_live
-            if i in GROUP_E_IDS and F_measured < STIFFNESS_E_GROUP_MIN_FM_FOR_TARGET_FLOOR_N:
-                F_target = STIFFNESS_E_GROUP_TARGET_FLOOR_N
-                using_e_target_floor = True
-            f_target_mode = "FROZEN" if use_frozen_target else "LIVE"
+            if exceeded_b_side:
+                F_target = f_target_min_n
+                use_frozen_target = False
+                prev_frozen_active = False
+            elif exceeded_l_side:
+                F_target = F_target_l_bound
+                use_frozen_target = False
+                prev_frozen_active = False
+            elif i in GROUP_E_IDS and F_measured < STIFFNESS_E_GROUP_MIN_FM_FOR_TARGET_FLOOR_N:
+                F_target = max(f_target_min_n, STIFFNESS_E_GROUP_TARGET_FLOOR_N)
+            F_target = max(f_target_min_n, F_target)
+            if exceeded_b_side:
+                f_target_mode = "B_CLAMP"
+            elif exceeded_l_side:
+                f_target_mode = "L_CLAMP"
+            else:
+                f_target_mode = "FROZEN" if use_frozen_target else "LIVE"
             match_enter_th_n = get_match_enter_threshold_n_for_id(i, F_target)
             match_exit_th_n = get_match_exit_threshold_n_for_id(i, F_target)
 
@@ -1456,6 +1540,13 @@ def render_loop():
             prev_err_mag = prev_force_error_mag_by_id[i]
             prev_dmag = prev_force_error_dmag_by_id[i]
             dmag = err_mag - prev_err_mag
+            e_reel_in_active = (
+                i in GROUP_E_IDS
+                and bool(STIFFNESS_E_GROUP_REEL_IN_ENABLE)
+                and F_measured < float(STIFFNESS_E_GROUP_REEL_IN_TRIGGER_FM_N)
+                and not exceeded_b_side
+                and not exceeded_l_side
+            )
 
             error_state = prev_error_state
             if controller == "simple_admittance":
@@ -1472,8 +1563,15 @@ def render_loop():
                     if force_error > match_exit_th_n:
                         error_state = "PUSH"
                         prev_frozen_active = False
-                        F_target = F_target_live
-                        f_target_mode = "LIVE"
+                        if exceeded_b_side:
+                            F_target = f_target_min_n
+                            f_target_mode = "B_CLAMP"
+                        elif exceeded_l_side:
+                            F_target = F_target_l_bound
+                            f_target_mode = "L_CLAMP"
+                        else:
+                            F_target = F_target_live
+                            f_target_mode = "LIVE"
                         match_enter_th_n = get_match_enter_threshold_n_for_id(i, F_target)
                         match_exit_th_n = get_match_exit_threshold_n_for_id(i, F_target)
                         force_error_raw = F_target - F_measured
@@ -1483,8 +1581,15 @@ def render_loop():
                     elif force_error < -match_exit_th_n:
                         error_state = "RELEASE"
                         prev_frozen_active = False
-                        F_target = F_target_live
-                        f_target_mode = "LIVE"
+                        if exceeded_b_side:
+                            F_target = f_target_min_n
+                            f_target_mode = "B_CLAMP"
+                        elif exceeded_l_side:
+                            F_target = F_target_l_bound
+                            f_target_mode = "L_CLAMP"
+                        else:
+                            F_target = F_target_live
+                            f_target_mode = "LIVE"
                         match_enter_th_n = get_match_enter_threshold_n_for_id(i, F_target)
                         match_exit_th_n = get_match_exit_threshold_n_for_id(i, F_target)
                         force_error_raw = F_target - F_measured
@@ -1521,7 +1626,13 @@ def render_loop():
                 else:
                     dx_cmd_m = 0.0
             else:
-                dx_cmd_m = -(kp * force_error + kd * d_err)
+                pid_gain_scale = 1.0
+                if force_error > 0.0:
+                    pid_gain_scale = get_pid_push_gain_scale_for_id(i)
+                elif force_error < 0.0:
+                    pid_gain_scale = get_pid_release_gain_scale_for_id(i)
+
+                dx_cmd_m = -((kp * pid_gain_scale) * force_error + (kd * pid_gain_scale) * d_err)
                 err_scale = clamp(abs(force_error) / max(1e-6, get_speed_err_full_scale_for_id(i)), 0.0, 1.0)
                 if force_error > 0.0:
                     if signal_now == "FALLING":
@@ -1537,19 +1648,44 @@ def render_loop():
                 dx_cmd_m = clamp(dx_cmd_m, -dx_cmd_max_m, dx_cmd_max_m)
 
                 # PID match capture:
-                # while retreating (RELEASE), if the loop reaches the narrow band
-                # 0 <= Ft-Fm < 0.2 N, freeze Ft and stop motor motion.
-                if prev_error_state == "RELEASE" and 0.0 <= force_error < match_enter_th_n:
+                # Enter MATCH either when retreating reaches the narrow band,
+                # or when the measured force trend is holding steady.
+                if (
+                    not e_reel_in_active
+                    and (
+                        (prev_error_state == "RELEASE" and 0.0 <= force_error < match_enter_th_n)
+                        or signal_now == "HOLD"
+                    )
+                ):
                     error_state = "MATCH"
                     prev_frozen_active = True
                     f_target_mode = "FROZEN"
                     dx_cmd_m = 0.0
                     F_target = prev_frozen_target = F_target
 
+            if exceeded_b_side:
+                if force_error < 0.0:
+                    dx_cmd_m = max(0.0, dx_cmd_m)
+                else:
+                    dx_cmd_m = 0.0
+            elif exceeded_l_side:
+                if force_error > 0.0:
+                    dx_cmd_m = min(0.0, dx_cmd_m)
+                else:
+                    dx_cmd_m = 0.0
+
+            if e_reel_in_active:
+                error_state = "PUSH"
+                prev_frozen_active = False
+                F_target = max(float(STIFFNESS_E_GROUP_REEL_IN_EXIT_FM_N), f_target_min_n)
+                force_error_raw = F_target - F_measured
+                force_error = 0.0 if abs(force_error_raw) < force_error_deadband_n else force_error_raw
+                err_mag = abs(force_error)
+                dmag = err_mag - prev_err_mag
+                f_target_mode = "E_REEL"
+
             with lock:
                 goal_prev = goal_tick_by_id[i]
-
-            goal_min, goal_max = get_goal_bounds(boundary_local[i], i)
 
             if use_velocity_output:
                 vel_cmd_mps = dx_cmd_m
@@ -1560,14 +1696,10 @@ def render_loop():
                     + float(STIFFNESS_PID_VEL_LPF_ALPHA) * vel_cmd_mps
                 )
                 vel_lsb = linear_mps_to_velocity_lsb(i, vel_cmd_mps)
-                if using_e_target_floor:
-                    floor_lsb = abs(int(STIFFNESS_E_GROUP_TARGET_FLOOR_VEL_LSB))
-                    if vel_lsb > 0:
-                        vel_lsb = max(vel_lsb, floor_lsb)
-                    elif vel_lsb < 0:
-                        vel_lsb = min(vel_lsb, -floor_lsb)
-                    else:
-                        vel_lsb = floor_lsb
+
+                if e_reel_in_active:
+                    vel_lsb = -int(STIFFNESS_E_GROUP_REEL_IN_VEL_LSB) * int(CONTROL_SIGN.get(i, 1))
+                    vel_cmd_mps = 0.0
 
                 if vel_lsb < 0 and pos_now_tick <= goal_min:
                     vel_lsb = 0
@@ -1598,6 +1730,7 @@ def render_loop():
                 t_now=t_now,
                 f_target=F_target,
                 f_measured=F_measured,
+                mea_ok=mea_ok,
                 force_error=force_error,
                 dmag=dmag,
                 current_state=error_state,
@@ -1718,12 +1851,6 @@ def handle_B():
             return
         render_enabled = False
 
-    try:
-        set_torque_enable_many(DXL_IDS, False)
-    except Exception as e:
-        debug(f"torque off before boundary failed: {e}")
-        return
-
     time.sleep(DT_LOOP * 2)
     try:
         pos = sync_read_present_positions(DXL_IDS)
@@ -1769,7 +1896,6 @@ def handle_L():
 
 
 def handle_V():
-    global render_enabled, current_trial, latest_force_for_unity, latest_disp_for_unity, trial_zero_ready
     use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
 
     with lock:
@@ -1777,29 +1903,9 @@ def handle_V():
             debug("boundary not ready; press B first")
             return
 
-        render_enabled = False
-        current_trial = None
-
-        active_ids.clear()
-        active_k_by_id.clear()
-        active_b_by_id.clear()
-        active_kp_by_id.clear()
-        active_kd_by_id.clear()
-        active_controller_by_id.clear()
-        active_adm_m_by_id.clear()
-        active_adm_b_by_id.clear()
-        active_adm_k_by_id.clear()
-        active_adm_vmax_by_id.clear()
-        active_adm_xmax_by_id.clear()
-        active_simple_push_gain_by_id.clear()
-        active_simple_release_gain_by_id.clear()
-        active_simple_push_max_by_id.clear()
-        active_simple_release_max_by_id.clear()
-        active_simple_err_full_scale_by_id.clear()
-        active_profile_v_by_id.clear()
-        active_profile_accel_by_id.clear()
-
         target_pos = dict(boundary_pos)
+
+    clear_active_trial_state()
 
     time.sleep(DT_LOOP * 2)
 
@@ -1835,54 +1941,205 @@ def handle_V():
                 prev_force_error_dmag_by_id[i] = 0.0
                 error_state_match_hold_until_by_id[i] = 0.0
 
-        latest_force_for_unity = 0.0
-        latest_disp_for_unity = 0.0
-        trial_zero_ready = False
-
     debug("moved back to boundary position")
     send_stdout("K")
 
 
 def handle_N():
-    global render_enabled
-    use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
+    handle_init_subset(DXL_IDS, "N")
+    send_stdout("K")
+
+
+def handle_init_subset(target_ids, cmd_name):
+    global render_enabled, current_trial
+
+    target_ids = [i for i in target_ids if i in DXL_IDS]
 
     with lock:
         if not baseline_ready:
             debug("baseline not ready; press L first")
-            return
+            return False
         render_enabled = False
+        current_trial = None
 
         pos = {}
-        for i in DXL_IDS:
+        for i in target_ids:
             if i not in baseline_pos:
                 continue
             delta_tick = int(round(float(INTI_DEG_STIFF.get(i, 0.0)) * TICKS_PER_DEG))
             pos[i] = int(baseline_pos[i]) + delta_tick
 
-        print("BOUNDARY2 TARGET POS =", pos)
+        debug(f"{cmd_name} init target pos (baseline + INTI_DEG_STIFF) = {pos}")
 
-    set_torque_enable_many(DXL_IDS, True)
-    if use_velocity_output:
-        try:
-            move_all_to_positions_velocity(pos)
-        except Exception as e:
-            debug(f"move to initial stiffness pose failed: {e}")
-            return
-    else:
-        move_all_to_positions(pos)
+    if not pos:
+        debug(f"{cmd_name} init skipped; no valid target IDs")
+        return False
+
+    # Initialization should actively drive to the configured initial pose
+    # in position mode and keep torque enabled afterwards.
+    set_operating_mode_many(target_ids, EXTENDED_POSITION_MODE, torque_on_after=True)
+    move_all_to_positions(pos)
 
     with lock:
-        for i in DXL_IDS:
+        for i in target_ids:
             if i in pos:
                 goal_tick_by_id[i] = int(pos[i])
 
+    debug(f"{cmd_name} init complete; torque remains enabled")
+    return True
+
+
+def handle_M_init():
+    ok = handle_init_subset(MANUAL_LIMIT_IDS, "M")
+    if ok:
+        send_stdout("K")
+
+
+def handle_return_baseline():
+    use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
+
+    clear_active_trial_state()
+
+    time.sleep(DT_LOOP * 2)
+
+    if use_velocity_output:
+        stop_velocity_many(DXL_IDS)
+    elif baseline_ready:
+        set_torque_enable_many(DXL_IDS, True)
+        move_all_to_positions(dict(baseline_pos), 0.5)
+        with lock:
+            for i in DXL_IDS:
+                if i in baseline_pos:
+                    goal_tick_by_id[i] = int(baseline_pos[i])
+
+    send_stdout("K")
+
+
+def parse_manual_position_move_command(cmd):
+    s = cmd.strip().lower()
+    if not s.startswith("pm:"):
+        return None
+
+    payload = s[3:].strip()
+    if not payload:
+        raise ValueError("manual_position_empty")
+
+    specs = {}
+    for part in payload.split(","):
+        token = part.strip()
+        m = re.fullmatch(r"([be])([+-]?\d+(?:\.\d+)?)@(\d+)", token)
+        if not m:
+            raise ValueError(f"manual_position_bad_token:{token}")
+
+        group = m.group(1)
+        if group in specs:
+            raise ValueError(f"manual_position_duplicate_group:{group}")
+
+        specs[group] = {
+            "delta_deg": float(m.group(2)),
+            "profile_v": int(m.group(3)),
+        }
+
+    if not specs:
+        raise ValueError("manual_position_empty")
+
+    return specs
+
+
+def handle_manual_position_move(cmd):
+    global manual_position_return_pos, manual_position_return_profile_v_by_id
+
+    try:
+        specs = parse_manual_position_move_command(cmd)
+    except Exception as e:
+        send_stdout(f"E {e}")
+        return True
+
+    if specs is None:
+        return False
+
+    target_ids = []
+    profile_v_map = {}
+    for group, spec in specs.items():
+        ids = [dxl_id for dxl_id in get_group_ids(group) if dxl_id in DXL_IDS]
+        if not ids:
+            send_stdout(f"E manual_position_no_ids_for_group:{group}")
+            return True
+
+        for dxl_id in ids:
+            if dxl_id not in target_ids:
+                target_ids.append(dxl_id)
+            profile_v_map[dxl_id] = int(spec["profile_v"])
+
+    clear_active_trial_state()
+    time.sleep(DT_LOOP * 2)
+
+    try:
+        start_pos = sync_read_present_positions(target_ids)
+    except Exception as e:
+        send_stdout(f"E manual_position_read_failed:{e}")
+        return True
+
+    target_pos = dict(start_pos)
+    for group, spec in specs.items():
+        delta_tick = int(round(float(spec["delta_deg"]) * TICKS_PER_DEG))
+        for dxl_id in get_group_ids(group):
+            if dxl_id in target_pos:
+                target_pos[dxl_id] = int(target_pos[dxl_id]) + delta_tick
+
+    try:
+        set_operating_mode_many(target_ids, EXTENDED_POSITION_MODE, torque_on_after=True)
+        move_all_to_positions(target_pos, settle=0.5, profile_v_map=profile_v_map)
+    except Exception as e:
+        send_stdout(f"E manual_position_move_failed:{e}")
+        return True
+
+    with lock:
+        manual_position_return_pos = dict(start_pos)
+        manual_position_return_profile_v_by_id = dict(profile_v_map)
+        for dxl_id, goal in target_pos.items():
+            goal_tick_by_id[dxl_id] = int(goal)
+
+    debug(f"[PM] moved from current ticks with specs={specs} | ids={target_ids}")
+    send_stdout("K")
+    return True
+
+
+def handle_manual_position_return():
+    global manual_position_return_pos, manual_position_return_profile_v_by_id
+
+    with lock:
+        return_pos = dict(manual_position_return_pos)
+        return_profile_v = dict(manual_position_return_profile_v_by_id)
+
+    if not return_pos:
+        send_stdout("E manual_position_return_not_ready")
+        return
+
+    target_ids = list(return_pos.keys())
+
+    clear_active_trial_state()
+    time.sleep(DT_LOOP * 2)
+
+    try:
+        set_operating_mode_many(target_ids, EXTENDED_POSITION_MODE, torque_on_after=True)
+        move_all_to_positions(return_pos, settle=0.5, profile_v_map=return_profile_v or None)
+    except Exception as e:
+        send_stdout(f"E manual_position_return_failed:{e}")
+        return
+
+    with lock:
+        for dxl_id, goal in return_pos.items():
+            goal_tick_by_id[dxl_id] = int(goal)
+
+    debug(f"[PM] returned to recorded start positions for ids={target_ids}")
     send_stdout("K")
 
 
 def handle_trial(code):
     global render_enabled, current_trial, trial_zero_ready
-    use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
+    trial_operating_mode = get_stiffness_operating_mode()
+    use_velocity_output = trial_operating_mode == VELOCITY_MODE
 
     if not boundary_ready:
         debug("boundary2 not ready; press B first")
@@ -1921,9 +2178,9 @@ def handle_trial(code):
         return
 
     try:
-        set_torque_enable_many(ids, True)
+        set_operating_mode_many(ids, trial_operating_mode, torque_on_after=True)
     except Exception as e:
-        debug(f"torque on before trial failed: {e}")
+        debug(f"set operating mode before trial failed: {e}")
         return
 
     for i in ids:
@@ -2042,58 +2299,25 @@ def handle_trial(code):
             error_state_match_hold_until_by_id[i] = 0.0
 
         trial_zero_ready = True
+
+    if use_velocity_output:
+        # Make the transition into match explicit: hold zero velocity once
+        # after trial state reset, then start the control/render loop.
+        stop_velocity_many(ids)
+
+    with lock:
         render_enabled = True
 
     compute_force_for_unity()
     compute_disp_for_unity()
-    debug(f"trial {code} started from boundary2; HX711 zeroed; ids={ids}")
+    if use_velocity_output:
+        debug(f"trial {code} started from boundary2; switched to velocity mode; HX711 zeroed; pre-loop velocity hold applied; ids={ids}")
+    else:
+        debug(f"trial {code} started from boundary2; switched to position mode; HX711 zeroed; ids={ids}")
 
 
 def handle_M():
-    global render_enabled, current_trial, latest_force_for_unity, latest_disp_for_unity, trial_zero_ready
-    use_velocity_output = str(STIFFNESS_PID_OUTPUT_MODE).lower() == "velocity"
-
-    with lock:
-        render_enabled = False
-        current_trial = None
-
-        active_ids.clear()
-        active_k_by_id.clear()
-        active_b_by_id.clear()
-        active_kp_by_id.clear()
-        active_kd_by_id.clear()
-        active_controller_by_id.clear()
-        active_adm_m_by_id.clear()
-        active_adm_b_by_id.clear()
-        active_adm_k_by_id.clear()
-        active_adm_vmax_by_id.clear()
-        active_adm_xmax_by_id.clear()
-        active_simple_push_gain_by_id.clear()
-        active_simple_release_gain_by_id.clear()
-        active_simple_push_max_by_id.clear()
-        active_simple_release_max_by_id.clear()
-        active_simple_err_full_scale_by_id.clear()
-        active_profile_v_by_id.clear()
-        active_profile_accel_by_id.clear()
-
-    time.sleep(DT_LOOP * 2)
-
-    if use_velocity_output:
-        stop_velocity_many(DXL_IDS)
-    elif baseline_ready:
-        set_torque_enable_many(DXL_IDS, True)
-        move_all_to_positions(dict(baseline_pos), 0.5)
-        with lock:
-            for i in DXL_IDS:
-                if i in baseline_pos:
-                    goal_tick_by_id[i] = int(baseline_pos[i])
-
-    with lock:
-        latest_force_for_unity = 0.0
-        latest_disp_for_unity = 0.0
-        trial_zero_ready = False
-
-    send_stdout("K")
+    handle_M_init()
 
 
 def handle_Z():
@@ -2111,6 +2335,41 @@ def handle_Z():
     debug(f"[ZERO] Manual zeroing triggered for IDs: {ids_to_zero}")
     zero_hx_sensors_for_trial(ids_to_zero)
     send_stdout("K")
+
+
+def handle_group_profile_velocity_command(cmd):
+    m = re.fullmatch(r"v([be])(\d+)", cmd.strip().lower())
+    if not m:
+        return False
+
+    group_name = m.group(1)
+    profile_v = int(m.group(2))
+    target_ids = [
+        dxl_id for dxl_id in get_group_ids(group_name)
+        if dxl_id in DXL_IDS
+    ]
+
+    if not target_ids:
+        debug(f"[PROFILE] no motors found for group {group_name}")
+        send_stdout("K")
+        return True
+
+    with lock:
+        profile_v_override_by_group[group_name] = profile_v
+        for dxl_id in target_ids:
+            active_profile_v_by_id[dxl_id] = profile_v
+
+    for dxl_id in target_ids:
+        try:
+            set_motor_profile(dxl_id, profile_v=profile_v)
+        except Exception as e:
+            debug(f"[PROFILE] ID{dxl_id} set failed: {e}")
+            send_stdout(f"E {e}")
+            return True
+
+    debug(f"[PROFILE] group {group_name} profile_v set to {profile_v} for IDs {target_ids}")
+    send_stdout("K")
+    return True
 
 
 def handle_Q():
@@ -2137,10 +2396,18 @@ def stdin_loop():
             handle_V()
         elif cmd in ("N", "n"):
             handle_N()
-        elif cmd in ("M", "m"):
+        elif cmd == "M":
             handle_M()
+        elif cmd == "m":
+            handle_return_baseline()
         elif cmd in ("Z", "z"):
             handle_Z()
+        elif cmd.lower() == "pmr":
+            handle_manual_position_return()
+        elif handle_manual_position_move(cmd):
+            pass
+        elif handle_group_profile_velocity_command(cmd):
+            pass
         elif cmd.lower() in (
             "epc", "epm", "eps",
             "presetc", "presetm", "presets",

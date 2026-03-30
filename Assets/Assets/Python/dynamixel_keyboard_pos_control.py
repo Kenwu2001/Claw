@@ -388,6 +388,17 @@ class KeyboardPosController:
 
         self._move_motors_to_ticks_sync(goals_by_id)
 
+    def move_all_to_baseline(self):
+        if not self._require_baseline():
+            return
+
+        goals_by_id: Dict[int, int] = {}
+        for mid in self.all_ids:
+            if mid in self.baseline:
+                goals_by_id[mid] = int(self.baseline[mid])
+
+        self._move_motors_to_ticks_sync(goals_by_id)
+
     def reboot_all_motors(self, reboot_delay_s: float = 0.3):
         """
         Reboot all enabled motors, then re-apply runtime setup.
