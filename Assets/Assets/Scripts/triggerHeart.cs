@@ -94,7 +94,7 @@ public class triggerHeart : MonoBehaviour
         _isSending = true;
         _alreadyTriggered = true;
 
-        string cmd = string.IsNullOrWhiteSpace(commandOnTrigger) ? "A" : commandOnTrigger.Trim();
+        string cmd = string.IsNullOrWhiteSpace(commandOnTrigger) ? "c" : commandOnTrigger.Trim().ToLowerInvariant();
         string result = await pythonBridge.SendRawCommandAsync(cmd);
 
         if (string.IsNullOrEmpty(result) || !result.StartsWith("K"))
