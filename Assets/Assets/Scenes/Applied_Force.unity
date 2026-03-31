@@ -10435,7 +10435,7 @@ MonoBehaviour:
   requireBaselineBeforeTrigger: 1
   enableBaselineHotkey: 1
   catRoot: {fileID: 1786621716}
-  moveDistance: 0.2
+  moveDistance: 0.12
   moveSpeed: 0.2
   startDelaySeconds: 0.5
   disappearAfterSeconds: 3
