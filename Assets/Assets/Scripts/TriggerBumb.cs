@@ -29,6 +29,12 @@ public class TriggerBumb : MonoBehaviour
     [Tooltip("送角度前先回初始位置 N")]
     public bool goInitialBeforeSend = false;
 
+    [Header("Baseline Guard")]
+    [Tooltip("進入關卡後需先按 B 記錄 baseline，才能觸發")]
+    public bool requireBaselineBeforeTrigger = true;
+
+    public bool enableBaselineHotkey = true;
+
     private bool _alreadyTriggered;
     private bool _isSending;
 
@@ -66,6 +72,14 @@ public class TriggerBumb : MonoBehaviour
             boom.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (!enableBaselineHotkey || !Input.GetKeyDown(KeyCode.B))
+            return;
+
+        RecordBaselineFromUnity();
+    }
+
     private bool IsHandHit(Transform other)
     {
         if (other == null) return false;
@@ -80,6 +94,11 @@ public class TriggerBumb : MonoBehaviour
     {
         if (Time.time < _armedAt) return;
         if (!IsHandHit(other.transform)) return;
+        if (requireBaselineBeforeTrigger && !BaselineRequirementState.IsReady)
+        {
+            Debug.LogWarning("[TriggerBumb] Please press B to record baseline before triggering.");
+            return;
+        }
 
         Debug.Log("[TriggerBumb] Hit hand (trigger): " + other.name);
 
@@ -88,6 +107,30 @@ public class TriggerBumb : MonoBehaviour
         if (!allowRepeatTrigger && _alreadyTriggered) return;
 
         StartCoroutine(GrowThenBoomCo());
+    }
+
+    private async void RecordBaselineFromUnity()
+    {
+        if (pythonBridge == null)
+        {
+            Debug.LogError("[TriggerBumb] pythonBridge is null.");
+            return;
+        }
+
+        if (!BaselineRequirementState.TryBeginRecording())
+            return;
+
+        string result = await pythonBridge.RecordBaselineAsync();
+        if (result == "K")
+        {
+            BaselineRequirementState.CompleteRecording(true);
+            Debug.Log("[TriggerBumb] Baseline recorded successfully.");
+        }
+        else
+        {
+            BaselineRequirementState.CompleteRecording(false);
+            Debug.LogError("[TriggerBumb] Record baseline failed: " + result);
+        }
     }
 
     private System.Collections.IEnumerator GrowThenBoomCo()

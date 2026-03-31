@@ -1947,6 +1947,8 @@ MonoBehaviour:
   allowRepeatTrigger: 1
   forceApplVelocityBeforeSend: 1
   goInitialBeforeSend: 0
+  requireBaselineBeforeTrigger: 1
+  enableBaselineHotkey: 1
   boom: {fileID: 1450859964}
   growDurationSeconds: 5
   growMultiplier: 2
@@ -10136,11 +10138,12 @@ MonoBehaviour:
   handRoot: {fileID: 0}
   handTag: Hand
   pythonBridge: {fileID: 683067081}
-  bDelta: 100
-  eDelta: 0
+  commandOnTrigger: a
   allowRepeatTrigger: 1
   forceApplVelocityBeforeSend: 1
   goInitialBeforeSend: 0
+  requireBaselineBeforeTrigger: 1
+  enableBaselineHotkey: 1
 --- !u!1 &1753018904
 GameObject:
   m_ObjectHideFlags: 0
@@ -10427,9 +10430,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerSmallCat
   handRoot: {fileID: 0}
   handTag: Hand
+  pythonBridge: {fileID: 683067081}
+  commandOnTrigger: m
+  requireBaselineBeforeTrigger: 1
+  enableBaselineHotkey: 1
   catRoot: {fileID: 1786621716}
-  moveDistance: 0.05
-  moveSpeed: 1
+  moveDistance: 0.2
+  moveSpeed: 0.2
+  startDelaySeconds: 0.5
+  disappearAfterSeconds: 3
 --- !u!1 &1787121174
 GameObject:
   m_ObjectHideFlags: 0
@@ -10633,12 +10642,15 @@ MonoBehaviour:
   pythonBridge: {fileID: 683067081}
   forceApplVelocityModeOnStart: 1
   sendAngleOnImpact: 1
+  sendRawCommandOnImpact: 1
+  impactRawCommand: g
   handPoseDelay: 0.05
   motorTriggerDelay: 0
   usePreTrigger: 1
   preTriggerDistance: 0.04
   impactAngleScale: 1
   enableManualMotorTestKey: 1
+  requireBaselineBeforePlay: 1
   useHardcodedImpactAngles: 0
   hardcodedBDelta: 20
   hardcodedEDelta: 20
@@ -11147,6 +11159,8 @@ MonoBehaviour:
   pythonBridge: {fileID: 683067081}
   commandOnTrigger: C
   allowRepeatTrigger: 1
+  requireBaselineBeforeTrigger: 1
+  enableBaselineHotkey: 1
 --- !u!1 &1927376952
 GameObject:
   m_ObjectHideFlags: 0
@@ -12050,12 +12064,15 @@ MonoBehaviour:
   pythonBridge: {fileID: 683067081}
   forceApplVelocityModeOnStart: 1
   sendAngleOnImpact: 1
+  sendRawCommandOnImpact: 1
+  impactRawCommand: y
   handPoseDelay: 0.05
   motorTriggerDelay: 0
   usePreTrigger: 0
   preTriggerDistance: 0
   impactAngleScale: 1
   enableManualMotorTestKey: 1
+  requireBaselineBeforePlay: 1
   useHardcodedImpactAngles: 0
   hardcodedBDelta: 30
   hardcodedEDelta: 20

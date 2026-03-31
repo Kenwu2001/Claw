@@ -49,6 +49,12 @@ public class BallFlyController : MonoBehaviour
     [Tooltip("撞擊時是否送馬達命令")]
     public bool sendAngleOnImpact = true;
 
+    [Tooltip("撞到手瞬間是否額外送原始指令")]
+    public bool sendRawCommandOnImpact = true;
+
+    [Tooltip("撞到手瞬間送出的原始指令")]
+    public string impactRawCommand = "y";
+
     [Header("Impact Timing")]
     public float handPoseDelay = 0.05f;  // 50 ms，自己調
 
@@ -65,6 +71,10 @@ public class BallFlyController : MonoBehaviour
 
     [Tooltip("按 T 測試馬達")]
     public bool enableManualMotorTestKey = true;
+
+    [Header("Baseline Guard")]
+    [Tooltip("進入關卡後需先按 B 記錄 baseline，才能開始 Play")]
+    public bool requireBaselineBeforePlay = true;
 
     [Tooltip("不看 CSV，直接用固定角度測試")]
     public bool useHardcodedImpactAngles = false;
@@ -528,15 +538,31 @@ public class BallFlyController : MonoBehaviour
 
     public async void RecordBaselineFromUnity()
     {
+        if (!BaselineRequirementState.TryBeginRecording())
+        {
+            if (BaselineRequirementState.IsReady)
+                Debug.Log("[BallFly] Baseline already recorded.");
+            return;
+        }
+
         if (pythonBridge == null)
         {
+            BaselineRequirementState.CompleteRecording(false);
             Debug.LogError("[BallFly] pythonBridge is null");
             return;
         }
 
         string result = await pythonBridge.RecordBaselineAsync();
-        if (result == "K") Debug.Log("[BallFly] Baseline recorded successfully.");
-        else Debug.LogError("[BallFly] Record baseline failed: " + result);
+        if (result == "K")
+        {
+            BaselineRequirementState.CompleteRecording(true);
+            Debug.Log("[BallFly] Baseline recorded successfully.");
+        }
+        else
+        {
+            BaselineRequirementState.CompleteRecording(false);
+            Debug.LogError("[BallFly] Record baseline failed: " + result);
+        }
     }
 
     public async void GoInitialFromUnity()
@@ -561,7 +587,11 @@ public class BallFlyController : MonoBehaviour
         }
 
         string result = await pythonBridge.RebootAllMotorsAsync();
-        if (result == "K") Debug.Log("[BallFly] Reboot all motors success. Please record baseline again.");
+        if (result == "K")
+        {
+            BaselineRequirementState.Reset();
+            Debug.Log("[BallFly] Reboot all motors success. Please record baseline again.");
+        }
         else Debug.LogError("[BallFly] Reboot all motors failed: " + result);
     }
 
@@ -610,22 +640,23 @@ public class BallFlyController : MonoBehaviour
 
         Debug.Log("[BallFly] TriggerImpactResponse() called");
         StartImpactScaleAnimation();
+        SendImpactRawCommand();
 
         if (useHandPoseBlend && handPoseBlender != null)
             StartCoroutine(DelayedHandPoseCo());
 
-        // 先送馬達，再做手部動畫，降低主觀延遲感
-        if (sendAngleOnImpact && isAnimating)
-        {
-            if (pythonBridge == null)
-            {
-                Debug.LogError("[BallFly] pythonBridge is null");
-            }
-            else
-            {
-                StartCoroutine(ImpactMotorCo());
-            }
-        }
+        // 暫時停用撞擊時的角度命令，只保留 raw command。
+        // if (sendAngleOnImpact && isAnimating)
+        // {
+        //     if (pythonBridge == null)
+        //     {
+        //         Debug.LogError("[BallFly] pythonBridge is null");
+        //     }
+        //     else
+        //     {
+        //         StartCoroutine(ImpactMotorCo());
+        //     }
+        // }
 
         // Invoke(nameof(PlayHandPose), 50);
 
@@ -634,6 +665,24 @@ public class BallFlyController : MonoBehaviour
         //     handPoseBlender.PlayImpactPose();
         //     Debug.Log("[BallFly] Hand pose triggered");
         // }
+    }
+
+    private async void SendImpactRawCommand()
+    {
+        if (!sendRawCommandOnImpact) return;
+        if (pythonBridge == null)
+        {
+            Debug.LogError("[BallFly] pythonBridge is null");
+            return;
+        }
+
+        string cmd = string.IsNullOrWhiteSpace(impactRawCommand) ? "y" : impactRawCommand.Trim().ToLowerInvariant();
+        string result = await pythonBridge.SendRawCommandAsync(cmd);
+
+        if (string.IsNullOrEmpty(result) || !result.StartsWith("K"))
+            Debug.LogError($"[BallFly] Impact raw command failed: {cmd} -> {result}");
+        else
+            Debug.Log($"[BallFly] Impact raw command sent: {cmd}");
     }
 
     private IEnumerator ImpactMotorCo()
@@ -814,6 +863,11 @@ public class BallFlyController : MonoBehaviour
     public async void PlayOnce()
     {
         if (isAnimating || _isPreparingPlay) return;
+        if (requireBaselineBeforePlay && !BaselineRequirementState.IsReady)
+        {
+            Debug.LogWarning("[BallFly] Please press B to record baseline before Play.");
+            return;
+        }
         
         FlashButton(playButton);
         StopPreviewLoop();

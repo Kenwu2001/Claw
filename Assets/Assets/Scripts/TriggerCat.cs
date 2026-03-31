@@ -9,12 +9,9 @@ public class TriggerCat : MonoBehaviour
     [Header("Python Bridge")]
     public PythonMotorBridge pythonBridge;
 
-    [Header("Send Command (BallFly style)")]
-    [Tooltip("送到 B 軸的相對角度，例如 50 會送 b50")]
-    public int bDelta = 100;
-
-    [Tooltip("送到 E 軸的相對角度，例如 50 會送 e50")]
-    public int eDelta = 0;
+    [Header("Raw Command")]
+    [Tooltip("碰到手時送出的原始指令")]
+    public string commandOnTrigger = "a";
 
     [Tooltip("true: 每次手進入都可觸發；false: 只觸發一次")]
     public bool allowRepeatTrigger = true;
@@ -25,6 +22,12 @@ public class TriggerCat : MonoBehaviour
 
     [Tooltip("送角度前先回初始位置 N")]
     public bool goInitialBeforeSend = false;
+
+    [Header("Baseline Guard")]
+    [Tooltip("進入關卡後需先按 B 記錄 baseline，才能觸發")]
+    public bool requireBaselineBeforeTrigger = true;
+
+    public bool enableBaselineHotkey = true;
 
     private bool _alreadyTriggered;
     private bool _isSending;
@@ -39,19 +42,56 @@ public class TriggerCat : MonoBehaviour
         return other.CompareTag(handTag);
     }
 
+    private void Update()
+    {
+        if (!enableBaselineHotkey || !Input.GetKeyDown(KeyCode.B))
+            return;
+
+        RecordBaselineFromUnity();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!IsHandHit(other.transform)) return;
+        if (requireBaselineBeforeTrigger && !BaselineRequirementState.IsReady)
+        {
+            Debug.LogWarning("[TriggerCat] Please press B to record baseline before triggering.");
+            return;
+        }
 
         Debug.Log("[TriggerCat] Hit hand (trigger): " + other.name);
 
         if (_isSending) return;
         if (!allowRepeatTrigger && _alreadyTriggered) return;
 
-        SendMotorCommand();
+        SendCommand();
     }
 
-    private async void SendMotorCommand()
+    private async void RecordBaselineFromUnity()
+    {
+        if (pythonBridge == null)
+        {
+            Debug.LogError("[TriggerCat] pythonBridge is null.");
+            return;
+        }
+
+        if (!BaselineRequirementState.TryBeginRecording())
+            return;
+
+        string result = await pythonBridge.RecordBaselineAsync();
+        if (result == "K")
+        {
+            BaselineRequirementState.CompleteRecording(true);
+            Debug.Log("[TriggerCat] Baseline recorded successfully.");
+        }
+        else
+        {
+            BaselineRequirementState.CompleteRecording(false);
+            Debug.LogError("[TriggerCat] Record baseline failed: " + result);
+        }
+    }
+
+    private async void SendCommand()
     {
         if (pythonBridge == null)
         {
@@ -61,9 +101,6 @@ public class TriggerCat : MonoBehaviour
 
         _isSending = true;
         _alreadyTriggered = true;
-
-        int sendB = bDelta;
-        int sendE = eDelta;
 
         if (forceApplVelocityBeforeSend)
         {
@@ -87,21 +124,22 @@ public class TriggerCat : MonoBehaviour
             }
         }
 
-        if (sendB == 0 && sendE == 0)
+        string cmd = string.IsNullOrWhiteSpace(commandOnTrigger) ? "a" : commandOnTrigger.Trim().ToLowerInvariant();
+        if (string.IsNullOrEmpty(cmd))
         {
-            Debug.LogWarning("[TriggerCat] bDelta and eDelta are both 0, skip sending.");
+            Debug.LogWarning("[TriggerCat] command is empty, skip sending.");
             _isSending = false;
             return;
         }
 
-        string result = await pythonBridge.SendTrialRelativeAsync(sendB, sendE);
+        string result = await pythonBridge.SendRawCommandAsync(cmd);
         if (string.IsNullOrEmpty(result) || !result.StartsWith("K"))
         {
-            Debug.LogError($"[TriggerCat] Send failed: {result} (b={sendB}, e={sendE})");
+            Debug.LogError($"[TriggerCat] Send failed: cmd={cmd}, result={result}");
         }
         else
         {
-            Debug.Log($"[TriggerCat] Send success: b={sendB}, e={sendE}, result={result}");
+            Debug.Log($"[TriggerCat] Send success: cmd={cmd}, result={result}");
         }
 
         _isSending = false;
